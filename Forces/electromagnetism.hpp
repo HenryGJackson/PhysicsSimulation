@@ -3,10 +3,12 @@
 
 #include <vector>
 
-#include "particle.hpp"
-#include "utility.hpp"
+#include "Particles/particle.hpp"
+#include "tools/utility.hpp"
 
 #define PI 3.1415926
+
+// Update using mathfunction class and derived.
 
 //Better off using Maxwell Eqns???
 namespace Coulomb{
@@ -34,7 +36,7 @@ std::vector<double> Coulomb::Acceleration(Particle p1, Particle p2){
 }
 
 namespace Maxwell{
-    
+
 }
 
 

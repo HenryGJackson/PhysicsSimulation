@@ -16,9 +16,9 @@ private:
     vector<double> m_coeffs;
 
 public:
-    Polynomial(int n_terms, vector<int> powers, vector<double> coeffs)
-        : MathFunction(), m_num_terms(n_terms), m_powers(powers),
-          m_coeffs(coeffs), m_zero(false) {}
+    Polynomial(int n_terms, vector<int> powers, vector<double> coeffs,
+      string str = "Unset") : MathFunction(str),
+      m_num_terms(n_terms), m_powers(powers), m_coeffs(coeffs), m_zero(false) {}
     double Evaluate(double value);
     void Differentiate();
     void Integrate(double x, double integralVal);

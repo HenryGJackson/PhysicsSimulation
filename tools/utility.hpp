@@ -5,9 +5,9 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "particle.hpp"
-#include "lepton.hpp"
-#include "baryon.hpp"
+#include "Particles/particle.hpp"
+#include "Particles/lepton.hpp"
+#include "Particles/baryon.hpp"
 
 namespace Utility{
     double DistanceMag(Particle p1, Particle p2);

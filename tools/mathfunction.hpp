@@ -2,24 +2,33 @@
 #define MATHFUNCTION_HPP
 
 #include <vector>
+#include <string>
+
 #include "utility.hpp"
 using namespace std;
+
+
 class MathFunction{
+
 private:
     bool restricted_domain;
     vector<double> m_domain;
+    string variable;
 
 public:
-    MathFunction() : restricted_domain(false) {}
-    MathFunction(vector<double> dom) : restricted_domain(true) {
-        try {if(dom.size() != 2) throw 1}
-        catch(int e) {
-            std::cout << "Domain must be a vector of length 2: dom(min, max)\n";
-            exit(EXIT_FAILURE);
-        }
-    }
+    MathFunction(string str) : restricted_domain(false), variable(str) {}
+    MathFunction(string str, vector<double> dom)
+      : restricted_domain(true), variable(str) {
+          try {if(dom.size() != 2) throw 1}
+          catch(int e) {
+              std::cout << "Domain must be a vector of length 2: dom(min, max)\n";
+              exit(EXIT_FAILURE);
+          }
+      }
     bool ValInDomain(double val);
 };
+
+
 
 bool MathFunction::ValInDomain(double val) {
     if(!restricted_domain) return true;
