@@ -1,7 +1,7 @@
 # PhysicsSimulation
 A library for producing physics simulations
 
-# Classes:  
+# Particles:  
 ## Particle - 
 Base class for all particles
 ### Constructors - 
@@ -26,16 +26,25 @@ Lepton(int gen, bool neutrino = false, bool antiparticle = false)
 Baryon class derived from Particle
 ### Constructors - 
 
-# Namespaces:
+# Forces:
 ## Coulomb - 
-Functions for simulating the coulomb interaction
+Namespace containing functions for simulating the coulomb interaction
 ### Public Member Functions - 
 std::vector<double> Force(Particle p1, Particle p2)  
 std::vector<double> Acceleration(Particle p1, Particle p2)  
 
+## Maxwell - (doesn't yet exist)
+
+# Tools:
 ## Utility -
 Utility functions with general purpose
 ### Public Member Functions - 
 double DistanceMag(Particle p1, Particle p2)  
 std::vector<double> DistanceVec(Particle p1, Particle p2)  
 double Magnitude(std::vector<double> vect)  
+
+## MathFunction -
+Base class for mathematical functions to be used in the simulations
+
+## Polynomial - 
+Derived class from MathFunction. Functions of the form f(x) = A*x^n + B*x^m ...
