@@ -13,6 +13,7 @@ namespace Utility{
     double DistanceMag(Particle p1, Particle p2);
     std::vector<double> DistanceVec(Particle p1, Particle p2);
     double Magnitude(std::vector<double> vect);
+    double RaiseToPower(double value, int power);
 }
 
 //Get the vector between p2 and p1
@@ -41,4 +42,18 @@ double Utility::DistanceMag(Particle p1, Particle p2){
     return (Utility::Magnitude(diff));
 }
 
+//Raise to an integer powers
+double Utility::RaiseToPower(double value, int power){
+    int tmp_pow;
+    if(power == 0) return 1.0;
+    else if(power < 0) tmp_pow = (-1)*power;
+    else tmp_pow = power;
+    int i;
+    double result = 1.0;
+    for(i = 0; i < tmp_pow; i ++) {
+        result = result * value;
+    }
+    if(power < 0) return (1.0/result);
+    else return result;
+}
 #endif

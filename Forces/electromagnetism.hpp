@@ -1,5 +1,5 @@
-#ifndef COULOMB_HPP
-#define COULOMB_HPP
+#ifndef ELECTROMTISM_HPP
+#define ELECTROMTISM_HPP
 
 #include <vector>
 
@@ -8,6 +8,7 @@
 
 #define PI 3.1415926
 
+//Better off using Maxwell Eqns???
 namespace Coulomb{
     std::vector<double> Force(Particle p1, Particle p2);
     std::vector<double> Acceleration(Particle p1, Particle p2);
@@ -30,6 +31,10 @@ std::vector<double> Coulomb::Acceleration(Particle p1, Particle p2){
     std::vector<double> a = Coulomb::Force(p1, p2);
     for(i = 0; i < 3; i++) { a[i] = a[i]/p1.getMass(); }
     return a;
+}
+
+namespace Maxwell{
+    
 }
 
 
