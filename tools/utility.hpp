@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 #include "Particles/particle.hpp"
 #include "Particles/lepton.hpp"
@@ -14,6 +15,7 @@ namespace Utility{
     std::vector<double> DistanceVec(Particle p1, Particle p2);
     double Magnitude(std::vector<double> vect);
     double RaiseToPower(double value, int power);
+    double RaiseToPower(double value, double power);
 }
 
 //Get the vector between p2 and p1
@@ -56,4 +58,19 @@ double Utility::RaiseToPower(double value, int power){
     if(power < 0) return (1.0/result);
     else return result;
 }
+
+double Utility::RaiseToPower(double value, double power){
+    if(value < 0) {
+      int check = int(value/1.0);
+      if(check != value) {
+          std::cout << "WARNING: Raising " << value << " to power " << power <<
+              ". Complex numbers have been disabled.\n" << check;
+      }
+      return RaiseToPower(value, int(power));
+    }
+    return exp(power*log(value));
+}
+
+
+
 #endif
