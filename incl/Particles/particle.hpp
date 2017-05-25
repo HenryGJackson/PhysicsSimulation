@@ -36,6 +36,8 @@ public:
     Force* getForce();
     void addToForce(std::vector<double> f);
     void Move(double timestep);
+    void checkBounds(double L);
+    void ReverseVel(int i);
 
     // ~Particle() { delete m_force; }
 };

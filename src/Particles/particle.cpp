@@ -54,6 +54,43 @@ void Particle::Move(double timestep){
     return;
 }
 
+void Particle::ReverseVel(int i){
+    m_velocity[i] = m_velocity[i]*(-1);
+    return;
+}
+
+void Particle::checkBounds(double L){
+    int i;
+    double rem;
+    int reverse;
+    int bounces;
+    for(i = 0; i < 3; i++) {
+        if(m_position[i] < 0){
+            bounces = int(m_position[i] / L);
+            rem = m_position[i] - (bounces*L);
+            reverse = bounces % 2;
+            if(reverse) {
+                m_position[i] = 0 - rem;
+                ReverseVel(i);
+            }
+            else m_position[i] = L + rem;
+            std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
+        }
+        else if(m_position[i] > L){
+            bounces = int(m_position[i] / L);
+            rem = m_position[i] - (bounces*L);
+            reverse = bounces % 2;
+            if(reverse) {
+                m_position[i] = rem;
+                ReverseVel(i);
+            }
+            else m_position[i] = L - rem;
+            std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
+        }
+    }
+    return;
+}
+
 
 
 

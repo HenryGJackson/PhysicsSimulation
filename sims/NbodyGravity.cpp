@@ -11,6 +11,7 @@
 #include "Particles/lepton.hpp"
 #include "Forces/Gravity.hpp"
 
+
 //Takes at least one argument:
 //    1: number of timesteps
 //    1: number of Particles
@@ -22,7 +23,7 @@
 //       If no arguments are given, 100 electrons are simulated
 int main(int argc, char* argv[]){
     unsigned int N, T, i, j; //Number of particles, Number of Timesteps, index
-    double timestep = 0.01; //length of each timestep
+    double timestep = 1E-3; //length of each timestep
     double L = 10.0;        //Length of the sides of the box
     std::vector<Particle> particles;  //Vector of N particles
     Force *force;
@@ -42,7 +43,6 @@ int main(int argc, char* argv[]){
             //Create N particles
             for(i = 0; i < N; i++) {
                 // std::cout << "co-ordinates: " << x << "," << y << "," << z << std::endl;
-
                 part->setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
                 force = new Force(zeroVec);
@@ -59,13 +59,14 @@ int main(int argc, char* argv[]){
         Gravity::setForces(particles);
         for(j = 0; j < N; j++) {
             particles[j].Move(timestep);
+            particles[j].checkBounds(L);
             if(i == T-1) std::cout << "Final Position of Particle " << j << ": ("
                           << particles[j].getPosition(0) << ", "
                           << particles[j].getPosition(1) << ", "
                           << particles[j].getPosition(2) << ")\n";
-            else std::cout << j << "/" << N << std::flush;
+            // else std::cout << j << "/" << N << std::flush;
         }
-        std::cout << i << "/" << T << std::flush;
+        // std::cout << i << "/" << T << std::flush;
     }
 
     // for(i = 0; i < N; i++) {
