@@ -23,6 +23,7 @@ public:
       string var = "Unset") : MathFunction(var), m_zero(false), m_tag("poly"),
       m_num_terms(n_terms), m_powers(powers), m_coeffs(coeffs),
       m_funct_coeff(false) { /*check_differentiable();*/ }
+    void setCoeffs(vector<double> coeffs);
     double Evaluate(double value);
     // void Differentiate();
     // void Integrate(double x, double integralVal);

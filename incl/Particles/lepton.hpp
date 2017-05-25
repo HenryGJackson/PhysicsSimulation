@@ -4,7 +4,10 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "particle.hpp"
+#include "Forces/force.hpp"
+#include "Particles/particle.hpp"
+// class Force;
+// class Particle;
 
 class Lepton : public Particle{
 private:
@@ -15,6 +18,7 @@ private:
     void Neutrino(bool antiparticle = false);
 
 public:
+
     Lepton(int gen, bool neutrino = false, bool antiparticle = false)
         : Particle(), m_generation(gen) {
             try { if(gen < 1 || gen > 3) throw gen; }

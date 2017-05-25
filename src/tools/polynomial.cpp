@@ -32,6 +32,11 @@ bool Polynomial::CheckStatus() {
     return false;
 }
 
+void Polynomial::setCoeffs(vector<double> coeffs){
+    m_coeffs = coeffs;
+    return;
+}
+
 // void Polynomial::Differentiate() {
 //     if(!m_zero) {
 //       int i;

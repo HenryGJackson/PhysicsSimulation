@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "particle.hpp"
+#include "Particles/particle.hpp"
 
 class Hadron : public Particle{
 private:
