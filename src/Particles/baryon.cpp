@@ -1,4 +1,4 @@
-#include "Particle/baryon.hpp"
+#include "Particles/baryon.hpp"
 
 void Hadron::Proton(bool antiparticle) {
     double charge;

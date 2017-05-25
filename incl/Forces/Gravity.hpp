@@ -1,20 +1,23 @@
 #ifndef GRAVITY_HPP
 #define GRAVITY_HPP
 
+#include "tools/mathfunction.hpp"
+#include "tools/exponential.hpp"
+#include "tools/polynomial.hpp"
+#include "tools/product.hpp"
+#include "tools/utility.hpp"
 #include "AstroObjects/MainSequence.hpp"
+#include "Particles/particle.hpp"
+#include "Particles/lepton.hpp"
+#include "Particles/baryon.hpp"
 
 #define G 6.67408E-11
 
 namespace Gravity{
-    double Force(Star* s1, Star* s2);
+    MathFunction* Force(Star* s1, Star* s2);
+    MathFunction* Force(Particle* p1, Particle* p2);
 }
 
-MathFunction* Gravity::Force(Star* s1, Star* s2){
-    std::vector<int> power;
-    power.push_back(-2);
-    std::vector<double> coeff;
-    coeff.push_back(G*s1->GetMass(m_mass)*s2->GetMass(m_mass));
-    MathFunction* force = new Polynomial(1,power,coeff,"Force");
-}
 
-#ifndef
+
+#endif

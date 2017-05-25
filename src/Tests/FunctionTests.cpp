@@ -31,7 +31,7 @@ bool FTests::TestPolynomialProduct() {
           diff = poly->Evaluate(val) - prod->Evaluate(val);
           diff = diff/poly->Evaluate(val);
           std::cout << "(" << val << ") " <<
-           poly->Evaluate(val) << " = " << prod->Evaluate(val) << "\n";
+          poly->Evaluate(val) << " = " << prod->Evaluate(val) << "\n";
           if(diff > 1E-4) return false;
       }
       prod->PrintFunc();

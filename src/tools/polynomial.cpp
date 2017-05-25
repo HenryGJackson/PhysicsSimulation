@@ -11,7 +11,7 @@ double Polynomial::Evaluate(double value) {
           return result;
       }
     }
-    else return 0;
+    return 0.0;
 }
 
 string Polynomial::GetTag() {
@@ -19,13 +19,17 @@ string Polynomial::GetTag() {
 }
 
 void Polynomial::PrintFunc() {
-    int i;
     for (int i = 0; i < m_num_terms; i++) {
         if(i > 0 && m_coeffs[i] > 0) std::cout << " + ";
         else std::cout << " ";
         std::cout << m_coeffs[i] << "x^" << m_powers[i];
     }
     return;
+}
+
+bool Polynomial::CheckStatus() {
+    if(m_zero) return true;
+    return false;
 }
 
 // void Polynomial::Differentiate() {

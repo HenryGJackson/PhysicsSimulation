@@ -7,6 +7,7 @@ void Particle::setProperties(double mass, double charge, bool antiparticle){
     m_anti = antiparticle;
     return;
 }
+
 double Particle::getMass(){  return m_mass;  }
 double Particle::getCharge(){  return m_charge;  }
 void Particle::printParticle(){ std::cout << "Mass: " << getMass() << " eV/c^2\nCharge: " << getCharge() << " eV\n";}
