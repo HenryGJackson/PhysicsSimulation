@@ -22,5 +22,13 @@ void Box::Print() {
                 << m_particles[i].getPosition(2) << ")\n";
       m_particles[i].getForce()->Print();
   }
+}
 
+void Box::Go(){
+  int i;
+  for(i = 0; i < T; i++) {
+      MoveParticles();
+  }
+  Print();
+  return;
 }

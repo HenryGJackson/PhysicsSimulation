@@ -18,6 +18,7 @@ public:
         return;
     }
     Particle* GetParticle(int i);
+    void Go();
     void MoveParticles();
     void Print();
 };

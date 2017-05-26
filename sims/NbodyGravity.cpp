@@ -25,7 +25,7 @@
 int main(int argc, char* argv[]){
     unsigned int N, T, i; //Number of particles, Number of Timesteps, index
     double timestep = 1E-3; //length of each timestep
-    double L = 10E10;        //Length of the sides of the box
+    double L = 10E3;        //Length of the sides of the box
     std::vector<Particle> particles;  //Vector of N particles
     Force *force;
     Particle* part;
@@ -59,9 +59,5 @@ int main(int argc, char* argv[]){
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
 
     Box *b = new Box(particles, L, T, timestep);
-    for(i = 0; i < T; i++) {
-        b->MoveParticles();
-    }
-    b->Print();
-
+    b->Go();
 }
