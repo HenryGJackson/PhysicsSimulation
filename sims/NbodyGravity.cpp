@@ -40,24 +40,34 @@ int main(int argc, char* argv[]){
 
             srand((unsigned)time(0));
             //Create N particles
-            for(i = 0; i < N; i++) {
-                particles.push_back(Sphere(0.00001,1.0,1.0));
+            for(i = 0; i < N*0.5; i++) {
+                particles.push_back(Sphere(50,1.0,1.0));
                 // part->ConvertUnits(true);
-                // std::cout << "co-ordinates: " << x << "," << y << "," << z << std::endl;
                 particles[i].setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
                 force = new Force(zeroVec);
                 particles[i].setForce(force);
-                // particles.push_back(*part);
-                // delete part;
+            }
+            for(i = N*0.5; i < N; i++) {
+                particles.push_back(Sphere(1,-1.0,1.0));
+                // part->ConvertUnits(true);
+                particles[i].setPosition(double(rand())/RAND_MAX*L,
+                    double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
+                force = new Force(zeroVec);
+                particles[i].setForce(force);
             }
         }
         else throw argc;
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     std::cout << "Built Problem\n";
+
+    //Create Box
     Box *b = new Box(particles, L, T, timestep);
+    //Run Simulation
     b->Go();
+
+
     for(i = 0; i < N; i++) {
         delete particles[i].getForce();
     }

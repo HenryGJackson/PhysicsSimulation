@@ -1,10 +1,35 @@
 #include "Systems/box.hpp"
 
-void Box::MoveParticles(){
+void Box::MoveParticlesGrav(){
     int j;
     Gravity::setForces(m_particles,true);
+    for(j = 0; j < N; j++) {
+        std::cout  << "\rMovement Progress: " << j << "/" << N
+            << "                      " << std::flush;
+        m_particles[j].Move(m_timestep);
+        m_particles[j].checkBounds(L);
+    }
+    return;
+}
+
+void Box::MoveParticlesEM(){
+    int j;
     Coulomb::setForces(m_particles,false);
     for(j = 0; j < N; j++) {
+        std::cout  << "\rMovement Progress: " << j << "/" << N
+            << "                      " << std::flush;
+        m_particles[j].Move(m_timestep);
+        m_particles[j].checkBounds(L);
+    }
+    return;
+}
+
+void Box::MoveParticlesAll(){
+    int j;
+    AllForces::setForces(m_particles,true);
+    for(j = 0; j < N; j++) {
+        std::cout  << "\rMovement Progress: " << j << "/" << N
+            << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
         m_particles[j].checkBounds(L);
     }
@@ -29,7 +54,8 @@ void Box::Print() {
 void Box::Go(){
   int i;
   for(i = 0; i < T; i++) {
-      MoveParticles();
+      std::cout << "\nTimestep: " << i << "/" << T << ".\n";
+      MoveParticlesAll();
   }
   Print();
   return;

@@ -3,6 +3,7 @@
 #include "Particles/particle.hpp"
 #include "Forces/Gravity.hpp"
 #include "Forces/electromagnetism.hpp"
+#include "Forces/allforces.hpp"
 class Box{
 private:
     std::vector<Particle> m_particles;
@@ -19,7 +20,9 @@ public:
     }
     Particle* GetParticle(int i);
     void Go();
-    void MoveParticles();
+    void MoveParticlesGrav();
+    void MoveParticlesEM();
+    void MoveParticlesAll();
     void Print();
 };
 

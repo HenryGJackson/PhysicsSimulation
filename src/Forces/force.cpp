@@ -15,6 +15,11 @@ void Force::add(std::vector<double> f) {
     for(i = 0; i < 3; i++) m_direction[i] += f[i];
     return;
 }
+void Force::take(std::vector<double> f) {
+    int i;
+    for(i = 0; i < 3; i++) m_direction[i] += f[i];
+    return;
+}
 std::vector<double> Force::getDir(){
   return m_direction;
 }

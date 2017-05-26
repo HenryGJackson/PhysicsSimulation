@@ -28,7 +28,7 @@ std::vector<double> Gravity::ForceVec(Particle* p1, Particle* p2){
     std::vector<double> f = Utility::zeroVec();
     int i;
     for( i = 0; i < 3; i++) {
-        f[i] = p1->getPosition(i) - p2->getPosition(i);
+        f[i] = p2->getPosition(i) - p1->getPosition(i);
         f[i] = G*p1->getMass()*p2->getMass()/(f[i]*f[i])*(-1);
     }
     return f;
@@ -36,7 +36,7 @@ std::vector<double> Gravity::ForceVec(Particle* p1, Particle* p2){
 
 void Gravity::setForces(std::vector<Particle> parts, bool reset = true){
       unsigned int i, j;
-      std::vector<double> f;
+      std::vector<double> f, f2;
       if(reset){
           for( i = 0; i < parts.size(); i++) {
               parts[i].setForce(0,0,0);
@@ -45,6 +45,7 @@ void Gravity::setForces(std::vector<Particle> parts, bool reset = true){
       for( i = 0; i < parts.size(); i++ ) {
           for(j = i+1; j < parts.size(); j++) {
               f = Gravity::ForceVec(&parts[i],&parts[j]);
+              f2 = Gravity::ForceVec(&parts[j],&parts[i]);
               parts[i].addToForce(f);
               parts[j].addToForce(f);
           }

@@ -23,6 +23,7 @@ public:
     void setDir(std::vector<double> dir);
     void setDir(double x, double y, double z);
     void setMag(double mag);
+    void take(std::vector<double> f);
 
 };
 

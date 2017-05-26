@@ -43,6 +43,10 @@ void Particle::addToForce(std::vector<double> f) {
     return;
 }
 
+void Particle::takeFromForce(std::vector<double> f){
+    m_force->take(f);
+    return;
+}
 Force* Particle::getForce() { return m_force; }
 
 void Particle::Move(double timestep){
@@ -77,7 +81,7 @@ void Particle::checkBounds(double L){
                 ReverseVel(i);
             }
             else m_position[i] = L + rem;
-            std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
+            // std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
         }
         else if(m_position[i] > L){
             bounces = int(m_position[i] / L);
@@ -88,7 +92,7 @@ void Particle::checkBounds(double L){
                 ReverseVel(i);
             }
             else m_position[i] = L - rem;
-            std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
+            // std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
         }
     }
     return;
