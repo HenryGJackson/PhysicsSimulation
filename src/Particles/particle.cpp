@@ -66,7 +66,8 @@ void Particle::ReverseVel(int i){
     return;
 }
 
-void Particle::checkBounds(double L){
+//Apply bouncing boundary condition
+void Particle::checkBoundsB(double L){
     int i;
     double rem;
     int reverse;
@@ -82,7 +83,7 @@ void Particle::checkBounds(double L){
                 ReverseVel(i);
             }
             else m_position[i] = L + rem;
-            
+
             // std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
         }
         else if(m_position[i] > L){
@@ -100,9 +101,6 @@ void Particle::checkBounds(double L){
     }
     return;
 }
-
-
-
 
 //Get the vector between p2 and p1
 std::vector<double> Part::DistanceVec(Particle p1, Particle p2){

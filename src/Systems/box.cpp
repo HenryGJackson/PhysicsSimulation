@@ -7,7 +7,7 @@ void Box::MoveParticlesGrav(){
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
-        m_particles[j].checkBounds(L);
+        if(m_boundType == 1) m_particles[j].checkBoundsB(L);
     }
     return;
 }
@@ -19,7 +19,7 @@ void Box::MoveParticlesEM(){
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
-        m_particles[j].checkBounds(L);
+        if(m_boundType == 1) m_particles[j].checkBoundsB(L);
     }
     return;
 }
@@ -32,7 +32,7 @@ void Box::MoveParticlesAll(){
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
-        m_particles[j].checkBounds(L);
+        if(m_boundType == 1) m_particles[j].checkBoundsB(L);
     }
     return;
 }

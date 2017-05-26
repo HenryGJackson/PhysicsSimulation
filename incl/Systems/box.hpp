@@ -11,10 +11,12 @@ private:
     double L;
     int T;
     int N;
+    int m_boundType;
 
 public:
-    Box(std::vector<Particle> part, double len, int numsteps, double timestep)
-      : m_particles(part), m_timestep(timestep), L(len), T(numsteps) {
+    Box(std::vector<Particle> part, double len, int numsteps,
+      double timestep, int bType = 1) : m_particles(part),
+      m_timestep(timestep), L(len), T(numsteps), m_boundType(bType) {
         N = part.size();
         return;
     }

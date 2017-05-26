@@ -27,7 +27,7 @@ public:
     //Public Memeber Functions
     void addToForce(std::vector<double> f);
     void takeFromForce(std::vector<double> f);
-    void checkBounds(double L);
+    void checkBoundsB(double L);
     bool checkPosition();
     void ConvertUnits(bool toSI = true);
     double getCharge();
