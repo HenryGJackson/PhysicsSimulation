@@ -17,16 +17,19 @@ private:
     std::vector<double> m_velocity;
 
 public:
-    void SetLuminosity();
-    void SetTemperature();
-    void SetMsLifetime();
-    double GetMass();
     Star(double mass, std::vector<double> pos, std::vector<double> vel)
       : m_mass(mass), m_position(pos), m_velocity(vel){
         SetLuminosity();
         SetTemperature();
         SetMsLifetime();
     }
+    
+    double GetMass();
+    void SetLuminosity();
+    void SetMsLifetime();
+    void SetTemperature();
+
+
 };
 
 

@@ -10,10 +10,12 @@ class Hadron : public Particle{
 private:
     int m_bnum;
     bool m_baryon;
-    void Proton(bool antiparticle = false);
     void Neutron(bool antiparticle = false);
+    void Proton(bool antiparticle = false);
+
 
 public:
+    //Constructors
     Hadron(int bnum, double mass, double charge)
       : Particle(mass, charge), m_bnum(bnum){
           if(bnum==0) m_baryon = false;

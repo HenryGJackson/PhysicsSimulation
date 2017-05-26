@@ -21,6 +21,7 @@ private:
     MathFunction* m_theta;
     bool m_functional_theta;
 public:
+    //Constructors
     Wave(bool cosine) : m_functional_theta(false){
         if(cosine = true) phase = PI*0.5;
         else phase = 0;
@@ -30,6 +31,7 @@ public:
         if(cosine = true) phase = PI*0.5;
         else phase = 0;
     }
+    //Public member functions
     double Evaluate(double value);
 }
 

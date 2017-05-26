@@ -17,6 +17,7 @@ private:
     string variable;
 
 public:
+    //Constructors
     MathFunction(string str) : restricted_domain(false), variable(str) {}
     MathFunction(string str, vector<double> dom)
       : restricted_domain(true), variable(str) {
@@ -26,10 +27,12 @@ public:
               exit(EXIT_FAILURE);
           }
       }
-    bool ValInDomain(double val);
-    string GetTag();
+    //Public Member Functions
     virtual double Evaluate(double val);
+    string GetTag();
     virtual void PrintFunc();
+    bool ValInDomain(double val);
+
 };
 
 

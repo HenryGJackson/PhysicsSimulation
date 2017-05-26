@@ -17,6 +17,7 @@ private:
     bool m_funct_coeff;
     double m_dcoeff;
 public:
+    //Constructors
     Exponential(MathFunction* exponent, double coeff) : MathFunction("Unset"),
         m_exponent(exponent), m_fcoeff(NULL),
         m_funct_coeff(false), m_dcoeff(coeff) {};
@@ -24,9 +25,10 @@ public:
         m_exponent(exponent), m_fcoeff(coeff),
         m_funct_coeff(true) {};
     // void Differentiate();
-    string GetTag();
+    //Public Member Functions
     bool CheckStatus();
     virtual double Evaluate(double value);
+    string GetTag();
     virtual void PrintFunc();
 };
 

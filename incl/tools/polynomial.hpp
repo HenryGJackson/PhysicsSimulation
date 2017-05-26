@@ -19,17 +19,20 @@ private:
     // bool m_differentiable;
 
 public:
+    //Constructors
     Polynomial(int n_terms, vector<double> powers, vector<double> coeffs,
       string var = "Unset") : MathFunction(var), m_zero(false), m_tag("poly"),
       m_num_terms(n_terms), m_powers(powers), m_coeffs(coeffs),
       m_funct_coeff(false) { /*check_differentiable();*/ }
-    void setCoeffs(vector<double> coeffs);
-    double Evaluate(double value);
-    // void Differentiate();
-    // void Integrate(double x, double integralVal);
-    string GetTag();
-    void PrintFunc();
+    //Public member functions
     bool CheckStatus();
+    // void Differentiate();
+    double Evaluate(double value);
+    string GetTag();
+    // void Integrate(double x, double integralVal);
+    void PrintFunc();
+    void setCoeffs(vector<double> coeffs);
+
 };
 
 

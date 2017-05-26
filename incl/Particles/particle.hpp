@@ -20,25 +20,26 @@ private:
     Force *m_force;
 
 public:
+    //Constructors
     Particle(double mass, double charge)
         : m_mass(mass), m_charge(charge), m_position_set(false),
           m_velocity(Utility::zeroVec()) {}
     Particle() : m_position_set(false), m_velocity(Utility::zeroVec()) {}
-    double getMass();
+    //Public Memeber Functions
+    void addToForce(std::vector<double> f);
+    void checkBounds(double L);
+    bool checkPosition();
     double getCharge();
-    void setProperties(double mass, double charge, bool antiparticle = false);
-    void printParticle();
-    void setPosition(double x, double y, double z);
+    Force* getForce();
+    double getMass();
     std::vector<double> getPosition();
     double getPosition(int i);
-    bool checkPosition();
-    void setForce(Force *f);
-    Force* getForce();
-    void addToForce(std::vector<double> f);
     void Move(double timestep);
-    void checkBounds(double L);
+    void printParticle();
     void ReverseVel(int i);
-
+    void setProperties(double mass, double charge, bool antiparticle = false);
+    void setPosition(double x, double y, double z);
+    void setForce(Force *f);
     // ~Particle() { delete m_force; }
 };
 
