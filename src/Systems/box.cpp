@@ -4,8 +4,8 @@ void Box::MoveParticlesGrav(){
     int j;
     setForcesGrav(true);
     for(j = 0; j < N; j++) {
-        std::cout  << "\rMovement Progress: " << j << "/" << N
-            << "                      " << std::flush;
+        // std::cout  << "\rMovement Progress: " << j << "/" << N
+        //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
         m_particles[j].checkBounds(L);
     }
@@ -16,8 +16,8 @@ void Box::MoveParticlesEM(){
     int j;
     setForcesEM(true);
     for(j = 0; j < N; j++) {
-        std::cout  << "\rMovement Progress: " << j << "/" << N
-            << "                      " << std::flush;
+        // std::cout  << "\rMovement Progress: " << j << "/" << N
+        //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
         m_particles[j].checkBounds(L);
     }
@@ -28,8 +28,8 @@ void Box::MoveParticlesAll(){
     int j;
     setForceAll(true);
     for(j = 0; j < N; j++) {
-        std::cout  << "\rMovement Progress: " << j << "/" << N
-            << "                      " << std::flush;
+        // std::cout  << "\rMovement Progress: " << j << "/" << N
+        //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
         m_particles[j].checkBounds(L);
     }
@@ -43,18 +43,19 @@ Particle* Box::GetParticle(int i){
 void Box::Print() {
   int i;
   for(i = 0; i < N; i++) {
-      std::cout << "Position of Particle " << i << ": ("
+      std::cout << i <<" - Position: ("
                 << m_particles[i].getPosition(0) << ", "
                 << m_particles[i].getPosition(1) << ", "
-                << m_particles[i].getPosition(2) << ")\n";
+                << m_particles[i].getPosition(2) << ")\n" << i << " - ";
       m_particles[i].getForce()->Print();
   }
 }
 
 void Box::Go(){
   int i;
+  Print();
   for(i = 0; i < T; i++) {
-      std::cout << "\nTimestep: " << i << "/" << T << ".\n";
+      // std::cout << "\nTimestep: " << i << "/" << T << ".\n";
       MoveParticlesAll();
   }
   Print();
@@ -67,22 +68,41 @@ void Box::setForceAll(bool reset){
       std::vector<double> g, g2;
       int len = m_particles.size();
       if(reset){
-          for( i = 0; i < len; i++) {
-              m_particles[i].setForce(0,0,0);
+          for( i = 0; i < len; i++ ) {
+              for(j = i+1; j < len; j++) {
+                  c = Coulomb::Force(m_particles[i],m_particles[j]);
+                  c2 = Coulomb::Force(m_particles[j],m_particles[i]);
+                  g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
+                  g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
+                  if(i!=0) {
+                     if(j!=1) m_particles[i].addToForce(c);
+                     else m_particles[i].setForce(c[0], c[1], c[2]);
+                     m_particles[j].addToForce(c2);
+                  }
+                  else{
+                    m_particles[i].setForce(c[0], c[1], c[2]);
+                    m_particles[j].setForce(c2[0], c2[1], c2[2]);
+                  }
+                  m_particles[i].addToForce(g);
+                  m_particles[j].addToForce(g2);
+              }
+              m_particles[i].getForce()->calcMag();
           }
       }
-      for( i = 0; i < len; i++ ) {
-          for(j = i+1; j < len; j++) {
-              c = Coulomb::Force(m_particles[i],m_particles[j]);
-              c2 = Coulomb::Force(m_particles[j],m_particles[i]);
-              g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
-              g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
-              m_particles[i].addToForce(c);
-              m_particles[i].addToForce(g);
-              m_particles[j].addToForce(c2);
-              m_particles[j].addToForce(g2);
+      else{
+          for( i = 0; i < len; i++ ) {
+              for(j = i+1; j < len; j++) {
+                  c = Coulomb::Force(m_particles[i],m_particles[j]);
+                  c2 = Coulomb::Force(m_particles[j],m_particles[i]);
+                  g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
+                  g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
+                  m_particles[i].addToForce(c);
+                  m_particles[j].addToForce(c2);
+                  m_particles[i].addToForce(g);
+                  m_particles[j].addToForce(g2);
+              }
+              m_particles[i].getForce()->calcMag();
           }
-          m_particles[i].getForce()->calcMag();
       }
       return;
 }
@@ -90,7 +110,7 @@ void Box::setForceAll(bool reset){
 void Box::setForcesEM(bool reset){
       int i, j;
       std::vector<double> f, f2;
-      int eslen = m_particles.size();
+      int len = m_particles.size();
       if(reset){
           for( i = 0; i < len; i++) {
               m_particles[i].setForce(0,0,0);

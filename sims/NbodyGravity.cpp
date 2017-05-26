@@ -37,10 +37,9 @@ int main(int argc, char* argv[]){
             else T = std::atoi(argv[1]);
             if(argc < 3) N = 100;
             else N = std::atoi(argv[2]);
-
             srand((unsigned)time(0));
             //Create N particles
-            for(i = 0; i < N*0.5; i++) {
+            for(i = 0; i < N; i++) {
                 particles.push_back(Sphere(50,1.0,1.0));
                 // part->ConvertUnits(true);
                 particles[i].setPosition(double(rand())/RAND_MAX*L,
@@ -48,20 +47,18 @@ int main(int argc, char* argv[]){
                 force = new Force(zeroVec);
                 particles[i].setForce(force);
             }
-            for(i = N*0.5; i < N; i++) {
-                particles.push_back(Sphere(1,-1.0,1.0));
-                // part->ConvertUnits(true);
-                particles[i].setPosition(double(rand())/RAND_MAX*L,
-                    double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
-                force = new Force(zeroVec);
-                particles[i].setForce(force);
-            }
+            // for(i = N*0.5; i < N; i++) {
+            //     particles.push_back(Sphere(1,-1.0,1.0));
+            //     // part->ConvertUnits(true);
+            //     particles[i].setPosition(double(rand())/RAND_MAX*L,
+            //         double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
+            //     force = new Force(zeroVec);
+            //     particles[i].setForce(force);
+            // }
         }
         else throw argc;
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
-    std::cout << "Built Problem\n";
-
     //Create Box
     Box *b = new Box(particles, L, T, timestep);
     //Run Simulation
