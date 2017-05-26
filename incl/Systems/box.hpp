@@ -2,7 +2,7 @@
 #define BOX_HPP
 #include "Particles/particle.hpp"
 #include "Forces/Gravity.hpp"
-
+#include "Forces/electromagnetism.hpp"
 class Box{
 private:
     std::vector<Particle> m_particles;

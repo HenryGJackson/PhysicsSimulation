@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,7 +27,6 @@ int main(int argc, char* argv[]){
     double L = 10E3;        //Length of the sides of the box
     std::vector<Particle> particles;  //Vector of N particles
     Force *force;
-    Particle* part;
     std::vector<double> zeroVec = Utility::zeroVec();
 
     //Set up the problem:
@@ -43,21 +41,25 @@ int main(int argc, char* argv[]){
             srand((unsigned)time(0));
             //Create N particles
             for(i = 0; i < N; i++) {
-                part = new Sphere(0.00001,0.0,1.0);
+                particles.push_back(Sphere(0.00001,1.0,1.0));
                 // part->ConvertUnits(true);
                 // std::cout << "co-ordinates: " << x << "," << y << "," << z << std::endl;
-                part->setPosition(double(rand())/RAND_MAX*L,
+                particles[i].setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
                 force = new Force(zeroVec);
-                part->setForce(force);
-                particles.push_back(*part);
+                particles[i].setForce(force);
+                // particles.push_back(*part);
                 // delete part;
             }
         }
         else throw argc;
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
-
+    std::cout << "Built Problem\n";
     Box *b = new Box(particles, L, T, timestep);
     b->Go();
+    for(i = 0; i < N; i++) {
+        delete particles[i].getForce();
+    }
+
 }

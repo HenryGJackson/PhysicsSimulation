@@ -3,10 +3,12 @@
 void Box::MoveParticles(){
     int j;
     Gravity::setForces(m_particles,true);
+    Coulomb::setForces(m_particles,false);
     for(j = 0; j < N; j++) {
         m_particles[j].Move(m_timestep);
         m_particles[j].checkBounds(L);
     }
+    return;
 }
 
 Particle* Box::GetParticle(int i){
