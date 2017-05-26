@@ -43,6 +43,7 @@ int main(int argc, char* argv[]){
             //Create N particles
             for(i = 0; i < N; i++) {
                 part = new Lepton(1);
+                part->ConvertUnits(true);
                 // std::cout << "co-ordinates: " << x << "," << y << "," << z << std::endl;
                 part->setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);

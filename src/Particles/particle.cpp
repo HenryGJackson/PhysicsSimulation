@@ -117,3 +117,15 @@ double Part::DistanceMag(Particle p1, Particle p2){
     std::vector<double> diff = DistanceVec(p1, p2);
     return (Utility::Magnitude(diff));
 }
+
+void Particle::ConvertUnits(bool toSI){
+    if(toSI){
+      m_mass *= 1.782662E-36;
+      m_charge *= 1.602176565E-19;
+    }
+    else {
+      m_mass /= 1.782662E-36;
+      m_charge /= 1.602176565E-19;
+    }
+    return;
+}

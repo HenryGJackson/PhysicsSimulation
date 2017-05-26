@@ -28,6 +28,7 @@ public:
     void addToForce(std::vector<double> f);
     void checkBounds(double L);
     bool checkPosition();
+    void ConvertUnits(bool toSI = true);
     double getCharge();
     Force* getForce();
     double getMass();
