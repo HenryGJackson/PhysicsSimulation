@@ -7,7 +7,7 @@ void Box::MoveParticlesGrav(){
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
-        if(m_boundType == 1) m_particles[j].checkBoundsB(L);
+        CheckBounds(j);
     }
     return;
 }
@@ -19,7 +19,7 @@ void Box::MoveParticlesEM(){
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
-        if(m_boundType == 1) m_particles[j].checkBoundsB(L);
+        CheckBounds(j);
     }
     return;
 }
@@ -32,10 +32,22 @@ void Box::MoveParticlesAll(){
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
         m_particles[j].Move(m_timestep);
-        if(m_boundType == 1) m_particles[j].checkBoundsB(L);
+        CheckBounds(j);
     }
     return;
 }
+
+void Box::CheckBounds(int j){
+  if(m_boundType == 1) m_particles[j].checkBoundsB(L);
+  else if(m_boundType == 2) {
+      if(!m_particles[j].checkBoundsA(L)) {
+        m_particles.erase(m_particles.begin()+j);
+        N -= 1;
+      }
+  }
+  return;
+}
+
 
 Particle* Box::GetParticle(int i){
     return &m_particles[i];

@@ -102,6 +102,15 @@ void Particle::checkBoundsB(double L){
     return;
 }
 
+//Check boundaries with absorbing boundaries
+bool Particle::checkBoundsA(double L) {
+    int i;
+    for(i = 0; i < 3; i++) {
+        if(m_position[i] > L || m_position[i] < 0) return false;
+    }
+    return true;
+}
+
 //Get the vector between p2 and p1
 std::vector<double> Part::DistanceVec(Particle p1, Particle p2){
     try{

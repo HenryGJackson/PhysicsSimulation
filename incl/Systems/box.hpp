@@ -15,11 +15,12 @@ private:
 
 public:
     Box(std::vector<Particle> part, double len, int numsteps,
-      double timestep, int bType = 1) : m_particles(part),
+      double timestep, int bType = 0) : m_particles(part),
       m_timestep(timestep), L(len), T(numsteps), m_boundType(bType) {
         N = part.size();
         return;
     }
+    void CheckBounds(int j);
     Particle* GetParticle(int i);
     void Go();
     void MoveParticlesGrav();

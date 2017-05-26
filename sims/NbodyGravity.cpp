@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
             srand((unsigned)time(0));
             //Create N particles
             for(i = 0; i < N; i++) {
-                particles.push_back(Sphere(50,1.0E-3,1.0));
+                particles.push_back(Sphere(50,1.0E-1,1.0));
                 // part->ConvertUnits(true);
                 particles[i].setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     //Create Box
-    Box *b = new Box(particles, L, T, timestep);
+    Box *b = new Box(particles, L, T, timestep, 2);
     //Run Simulation
     b->Go();
 
