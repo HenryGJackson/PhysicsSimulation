@@ -19,6 +19,7 @@ public:
     void calcMag();
     std::vector<double> getDir();
     double getDir(int i);
+    void Print();
     void setDir(std::vector<double> dir);
     void setDir(double x, double y, double z);
     void setMag(double mag);

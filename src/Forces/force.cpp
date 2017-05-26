@@ -23,3 +23,10 @@ double Force::getDir(int i){
   catch(int e){ std::cout << "Get Direction Index Error\n"; exit(EXIT_FAILURE);}
   return m_direction[i];
 }
+
+void Force::Print(){
+    std::cout << "Force: Magnitude = " << m_magnitude << ", Vector = (" <<
+            m_direction[0] << ", " << m_direction[1] << ", " << m_direction[2] <<
+            ").\n";
+    return;
+}

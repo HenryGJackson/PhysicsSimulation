@@ -61,17 +61,14 @@ int main(int argc, char* argv[]){
         for(j = 0; j < N; j++) {
             particles[j].Move(timestep);
             particles[j].checkBounds(L);
-            if(i == T-1) std::cout << "Final Position of Particle " << j << ": ("
+            if(i == T-1) {
+                std::cout << "Final Position of Particle " << j << ": ("
                           << particles[j].getPosition(0) << ", "
                           << particles[j].getPosition(1) << ", "
                           << particles[j].getPosition(2) << ")\n";
-            // else std::cout << j << "/" << N << std::flush;
+                particles[j].getForce()->Print();
+            }
         }
-        // std::cout << i << "/" << T << std::flush;
     }
-
-    // for(i = 0; i < N; i++) {
-    //     delete &particles[i];
-    // }
 
 }
