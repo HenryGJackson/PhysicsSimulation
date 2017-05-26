@@ -14,6 +14,5 @@
 namespace Coulomb{
     std::vector<double> Force(Particle p1, Particle p2);
     std::vector<double> Acceleration(Particle p1, Particle p2);
-    void setForces(std::vector<Particle> parts, bool reset = true);
 }
 #endif

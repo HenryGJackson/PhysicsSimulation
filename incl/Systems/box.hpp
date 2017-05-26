@@ -3,7 +3,7 @@
 #include "Particles/particle.hpp"
 #include "Forces/Gravity.hpp"
 #include "Forces/electromagnetism.hpp"
-#include "Forces/allforces.hpp"
+
 class Box{
 private:
     std::vector<Particle> m_particles;
@@ -24,6 +24,9 @@ public:
     void MoveParticlesEM();
     void MoveParticlesAll();
     void Print();
+    void setForceAll(bool reset);
+    void setForcesEM(bool reset);
+    void setForcesGrav(bool reset);
 };
 
 #endif

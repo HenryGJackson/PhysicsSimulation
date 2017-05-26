@@ -19,23 +19,3 @@ std::vector<double> Coulomb::Acceleration(Particle p1, Particle p2){
     for(i = 0; i < 3; i++) { a[i] = a[i]/p1.getMass(); }
     return a;
 }
-
-void Coulomb::setForces(std::vector<Particle> parts, bool reset){
-      unsigned int i, j;
-      std::vector<double> f, f2;
-      if(reset){
-          for( i = 0; i < parts.size(); i++) {
-              parts[i].setForce(0,0,0);
-          }
-      }
-      for( i = 0; i < parts.size(); i++ ) {
-          for(j = i+1; j < parts.size(); j++) {
-              f = Coulomb::Force(parts[i],parts[j]);
-              f2 = Coulomb::Force(parts[j],parts[i]);
-              parts[i].addToForce(f);
-              parts[j].addToForce(f2);
-          }
-          parts[i].getForce()->calcMag();
-      }
-      return;
-}

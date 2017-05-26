@@ -19,7 +19,6 @@ namespace Gravity{
     MathFunction* Force(Star* s1, Star* s2);
     MathFunction* Force(Particle* p1, Particle* p2);
     std::vector<double> ForceVec(Particle* p1, Particle* p2);
-    void setForces(std::vector<Particle> parts, bool reset);
 }
 
 
