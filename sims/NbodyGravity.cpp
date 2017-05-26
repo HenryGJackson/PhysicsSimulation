@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
             srand((unsigned)time(0));
             //Create N particles
             for(i = 0; i < N; i++) {
-                particles.push_back(Sphere(50,1.0,1.0));
+                particles.push_back(Sphere(50,1.0E-3,1.0));
                 // part->ConvertUnits(true);
                 particles[i].setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
@@ -63,7 +63,6 @@ int main(int argc, char* argv[]){
     Box *b = new Box(particles, L, T, timestep);
     //Run Simulation
     b->Go();
-
 
     for(i = 0; i < N; i++) {
         delete particles[i].getForce();

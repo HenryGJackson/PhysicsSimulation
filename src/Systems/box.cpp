@@ -24,6 +24,7 @@ void Box::MoveParticlesEM(){
     return;
 }
 
+
 void Box::MoveParticlesAll(){
     int j;
     setForceAll(true);
@@ -51,6 +52,7 @@ void Box::Print() {
   }
 }
 
+//Run simulation for T timesteps
 void Box::Go(){
   int i;
   Print();
@@ -62,49 +64,50 @@ void Box::Go(){
   return;
 }
 
+//Set forces using all forces (Gravity,Coulomb)
 void Box::setForceAll(bool reset){
-      int i, j;
-      std::vector<double> c, c2;
-      std::vector<double> g, g2;
-      int len = m_particles.size();
-      if(reset){
-          for( i = 0; i < len; i++ ) {
-              for(j = i+1; j < len; j++) {
-                  c = Coulomb::Force(m_particles[i],m_particles[j]);
-                  c2 = Coulomb::Force(m_particles[j],m_particles[i]);
-                  g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
-                  g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
-                  if(i!=0) {
-                     if(j!=1) m_particles[i].addToForce(c);
-                     else m_particles[i].setForce(c[0], c[1], c[2]);
-                     m_particles[j].addToForce(c2);
-                  }
-                  else{
-                    m_particles[i].setForce(c[0], c[1], c[2]);
-                    m_particles[j].setForce(c2[0], c2[1], c2[2]);
-                  }
-                  m_particles[i].addToForce(g);
-                  m_particles[j].addToForce(g2);
-              }
-              m_particles[i].getForce()->calcMag();
-          }
-      }
-      else{
-          for( i = 0; i < len; i++ ) {
-              for(j = i+1; j < len; j++) {
-                  c = Coulomb::Force(m_particles[i],m_particles[j]);
-                  c2 = Coulomb::Force(m_particles[j],m_particles[i]);
-                  g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
-                  g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
-                  m_particles[i].addToForce(c);
-                  m_particles[j].addToForce(c2);
-                  m_particles[i].addToForce(g);
-                  m_particles[j].addToForce(g2);
-              }
-              m_particles[i].getForce()->calcMag();
-          }
-      }
-      return;
+    int i, j;
+    std::vector<double> c, c2;
+    std::vector<double> g, g2;
+    int len = m_particles.size();
+    if(reset){
+        for( i = 0; i < len; i++ ) {
+            for(j = i+1; j < len; j++) {
+                c = Coulomb::Force(m_particles[i],m_particles[j]);
+                c2 = Coulomb::Force(m_particles[j],m_particles[i]);
+                g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
+                g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
+                if(i!=0) {
+                   if(j!=1) m_particles[i].addToForce(c);
+                   else m_particles[i].setForce(c[0], c[1], c[2]);
+                   m_particles[j].addToForce(c2);
+                }
+                else{
+                  m_particles[i].setForce(c[0], c[1], c[2]);
+                  m_particles[j].setForce(c2[0], c2[1], c2[2]);
+                }
+                m_particles[i].addToForce(g);
+                m_particles[j].addToForce(g2);
+            }
+            m_particles[i].getForce()->calcMag();
+        }
+    }
+    else{
+        for( i = 0; i < len; i++ ) {
+            for(j = i+1; j < len; j++) {
+                c = Coulomb::Force(m_particles[i],m_particles[j]);
+                c2 = Coulomb::Force(m_particles[j],m_particles[i]);
+                g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
+                g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
+                m_particles[i].addToForce(c);
+                m_particles[j].addToForce(c2);
+                m_particles[i].addToForce(g);
+                m_particles[j].addToForce(g2);
+            }
+            m_particles[i].getForce()->calcMag();
+        }
+    }
+    return;
 }
 
 void Box::setForcesEM(bool reset){

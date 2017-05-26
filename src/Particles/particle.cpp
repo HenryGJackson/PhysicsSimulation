@@ -73,7 +73,8 @@ void Particle::checkBounds(double L){
     int bounces;
     for(i = 0; i < 3; i++) {
         if(m_position[i] < 0){
-            bounces = int(m_position[i] / L);
+            bounces = int(m_position[i] / L)*(-1);
+            if(bounces > 1) std::cout << "[WARNING] Multiple bounces in one timestep\n";
             rem = m_position[i] - (bounces*L);
             reverse = bounces % 2;
             if(reverse) {
@@ -81,10 +82,12 @@ void Particle::checkBounds(double L){
                 ReverseVel(i);
             }
             else m_position[i] = L + rem;
+            
             // std::cout << "\n\n!!!!!!!! BOUNCE !!!!!!!!!\n\n";
         }
         else if(m_position[i] > L){
             bounces = int(m_position[i] / L);
+            if(bounces > 1) std::cout << "[WARNING] Multiple bounces in one timestep\n";
             rem = m_position[i] - (bounces*L);
             reverse = bounces % 2;
             if(reverse) {
