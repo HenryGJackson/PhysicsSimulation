@@ -7,7 +7,6 @@
 
 #include "Forces/force.hpp"
 #include "tools/utility.hpp"
-// class Force;
 
 class Particle{
 private:
@@ -40,6 +39,7 @@ public:
     void setProperties(double mass, double charge, bool antiparticle = false);
     void setPosition(double x, double y, double z);
     void setForce(Force *f);
+    void setForce(double x, double y, double z);
     // ~Particle() { delete m_force; }
 };
 

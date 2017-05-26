@@ -35,6 +35,9 @@ double Particle::getPosition(int i){
 }
 bool Particle::checkPosition(){ return m_position_set; }
 void Particle::setForce(Force *f){ m_force = f; return; }
+void Particle::setForce(double x, double y, double z){
+  m_force->setDir(x, y, z);
+}
 void Particle::addToForce(std::vector<double> f) {
     m_force->add(f);
     return;

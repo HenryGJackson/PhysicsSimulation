@@ -20,6 +20,7 @@ public:
     std::vector<double> getDir();
     double getDir(int i);
     void setDir(std::vector<double> dir);
+    void setDir(double x, double y, double z);
     void setMag(double mag);
 
 };

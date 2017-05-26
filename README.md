@@ -2,12 +2,12 @@
 A library for producing physics simulations
 
 # Particles:  
-## Particle - 
+## Particle -
 Base class for all particles
-### Constructors - 
+### Constructors -
 Particle(double mass, double charge)
 Particle()
-### Public Member Functions - 
+### Public Member Functions -
 void setProperties(double mass, double charge, bool antiparticle = false)  
 void printParticle()  
 void setPosition(double x, double y, double z)  
@@ -16,20 +16,20 @@ bool checkPosition()
 
 ## Lepton -
 Lepton class derived from Particle
-### Constructors - 
+### Constructors -
 Lepton(int gen, bool neutrino = false, bool antiparticle = false)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creates an instance of Lepton with generation 1 = electron, 2 = muon, 3 = tau.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;neutrino = true creates a lepton with the properties of a neutrino or else the lepton that corresponds 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;neutrino = true creates a lepton with the properties of a neutrino or else the lepton that corresponds
                  to the generation.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;antiparticle = true creates an instance of the corresponding antilepton
-## Baryon - 
-Baryon class derived from Particle
-### Constructors - 
+## Hadron -
+Hadron class derived from Particle
+### Constructors -
 
 # Forces:
-## Coulomb - 
+## Coulomb -
 Namespace containing functions for simulating the coulomb interaction
-### Public Member Functions - 
+### Public Member Functions -
 std::vector<double> Force(Particle p1, Particle p2)  
 std::vector<double> Acceleration(Particle p1, Particle p2)  
 
@@ -38,7 +38,7 @@ std::vector<double> Acceleration(Particle p1, Particle p2)
 # Tools:
 ## Utility -
 Utility functions with general purpose
-### Public Member Functions - 
+### Public Member Functions -
 double DistanceMag(Particle p1, Particle p2)  
 std::vector<double> DistanceVec(Particle p1, Particle p2)  
 double Magnitude(std::vector<double> vect)  
@@ -46,5 +46,5 @@ double Magnitude(std::vector<double> vect)
 ## MathFunction -
 Base class for mathematical functions to be used in the simulations
 
-## Polynomial - 
+## Polynomial -
 Derived class from MathFunction. Functions of the form f(x) = A*x^n + B*x^m ...

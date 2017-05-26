@@ -34,9 +34,14 @@ std::vector<double> Gravity::ForceVec(Particle* p1, Particle* p2){
     return f;
 }
 
-void Gravity::setForces(std::vector<Particle> parts){
+void Gravity::setForces(std::vector<Particle> parts, bool reset = true){
       unsigned int i, j;
       std::vector<double> f;
+      if(reset){
+          for( i = 0; i < parts.size(); i++) {
+              parts[i].setForce(0,0,0);
+          }
+      }
       for( i = 0; i < parts.size(); i++ ) {
           for(j = i+1; j < parts.size(); j++) {
               f = Gravity::ForceVec(&parts[i],&parts[j]);

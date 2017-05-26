@@ -38,10 +38,11 @@ int main(int argc, char* argv[]){
             else T = std::atoi(argv[1]);
             if(argc < 3) N = 100;
             else N = std::atoi(argv[2]);
-            part = new Lepton(1);
+
             srand((unsigned)time(0));
             //Create N particles
             for(i = 0; i < N; i++) {
+                part = new Lepton(1);
                 // std::cout << "co-ordinates: " << x << "," << y << "," << z << std::endl;
                 part->setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]){
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
 
     for(i = 0; i < T; i++) {
-        Gravity::setForces(particles);
+        Gravity::setForces(particles,true);
         for(j = 0; j < N; j++) {
             particles[j].Move(timestep);
             particles[j].checkBounds(L);
