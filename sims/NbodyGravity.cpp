@@ -10,7 +10,8 @@
 #include "Particles/particle.hpp"
 #include "Particles/lepton.hpp"
 #include "Forces/Gravity.hpp"
-
+#include "Particles/sphere.hpp"
+#include "Systems/box.hpp"
 
 //Takes at least one argument:
 //    1: number of timesteps
@@ -22,9 +23,9 @@
 // NOTE: If just one argument is given, all particles are electrons
 //       If no arguments are given, 100 electrons are simulated
 int main(int argc, char* argv[]){
-    unsigned int N, T, i, j; //Number of particles, Number of Timesteps, index
+    unsigned int N, T, i; //Number of particles, Number of Timesteps, index
     double timestep = 1E-3; //length of each timestep
-    double L = 10.0;        //Length of the sides of the box
+    double L = 10E10;        //Length of the sides of the box
     std::vector<Particle> particles;  //Vector of N particles
     Force *force;
     Particle* part;
@@ -42,8 +43,8 @@ int main(int argc, char* argv[]){
             srand((unsigned)time(0));
             //Create N particles
             for(i = 0; i < N; i++) {
-                part = new Lepton(1);
-                part->ConvertUnits(true);
+                part = new Sphere(0.00001,0.0,1.0);
+                // part->ConvertUnits(true);
                 // std::cout << "co-ordinates: " << x << "," << y << "," << z << std::endl;
                 part->setPosition(double(rand())/RAND_MAX*L,
                     double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
@@ -57,19 +58,10 @@ int main(int argc, char* argv[]){
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
 
+    Box *b = new Box(particles, L, T, timestep);
     for(i = 0; i < T; i++) {
-        Gravity::setForces(particles,true);
-        for(j = 0; j < N; j++) {
-            particles[j].Move(timestep);
-            particles[j].checkBounds(L);
-            if(i == T-1) {
-                std::cout << "Final Position of Particle " << j << ": ("
-                          << particles[j].getPosition(0) << ", "
-                          << particles[j].getPosition(1) << ", "
-                          << particles[j].getPosition(2) << ")\n";
-                particles[j].getForce()->Print();
-            }
-        }
+        b->MoveParticles();
     }
+    b->Print();
 
 }
