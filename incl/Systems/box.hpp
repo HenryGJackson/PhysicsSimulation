@@ -4,7 +4,7 @@
 #include "Particles/particle.hpp"
 #include "Forces/Gravity.hpp"
 #include "Forces/electromagnetism.hpp"
-
+#include "tools/vectfunction.hpp"
 
 class Box{
 private:
@@ -15,7 +15,7 @@ private:
     int N;
     std::vector<double> m_BField;
     int m_boundType;
-    MathFunction* m_extForce;
+    VectFunction* m_extForce;
 
 public:
     Box(std::vector<Particle> part, double len, int numsteps,
@@ -34,7 +34,7 @@ public:
     void MoveParticlesAll();
     void Print();
     void setBField(std::vector<double> B);
-    void setExtForce(MathFunction* f);
+    void setExtForce(VectFunction* f);
     void setForceAll(bool reset);
     void setForcesEM(bool reset);
     void setForcesGrav(bool reset);
