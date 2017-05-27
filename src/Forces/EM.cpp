@@ -12,6 +12,7 @@ std::vector<double> Coulomb::Force(Particle p1, Particle p2){
     return force;
 }
 
+ 
 //Returns the Acceleration of p1 due to the coulomb force between it and p2
 std::vector<double> Coulomb::Acceleration(Particle p1, Particle p2){
     int i;
