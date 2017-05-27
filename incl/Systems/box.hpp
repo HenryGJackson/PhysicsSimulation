@@ -16,6 +16,7 @@ private:
     std::vector<double> m_BField;
     int m_boundType;
     VectFunction* m_extForce;
+    bool m_forceExists;
 
 public:
     Box(std::vector<Particle> part, double len, int numsteps,
@@ -23,6 +24,17 @@ public:
       m_timestep(timestep), L(len), T(numsteps), m_boundType(bType){
         setBField(Utility::zeroVec());
         N = part.size();
+        m_forceExists = false;
+        return;
+    }
+    ~Box(){
+        int i;
+        for(i = 0; i < N; i++) {
+            delete m_particles[i].getForce();
+        }
+        std::cout << "Deleted Forces\n";
+        delete m_extForce;
+        std::cout << "Deleted Box\n";
         return;
     }
     void CheckBounds(int j);

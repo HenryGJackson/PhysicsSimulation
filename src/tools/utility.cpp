@@ -27,8 +27,8 @@ double Utility::RaiseToPower(double value, int power){
 
 double Utility::RaiseToPower(double value, double power){
     if(value < 0) {
-      int check = int(value/1.0);
-      if(check != value) {
+      int check = int(power/1.0);
+      if(check != power) {
           std::cout << "WARNING: Raising " << value << " to power " << power <<
               ". Complex numbers have been disabled.\n" << check;
       }

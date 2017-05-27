@@ -23,7 +23,7 @@
 //       If no arguments are given, 100 electrons are simulated
 int main(int argc, char* argv[]){
     unsigned int N, T, i; //Number of particles, Number of Timesteps, index
-    double timestep = 1E-3; //length of each timestep
+    double timestep = 1E-5; //length of each timestep
     double L = 10E3;        //Length of the sides of the box
     std::vector<Particle> particles;  //Vector of N particles
     Force *force;
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
         if(argc < 4){
             if(argc < 2) T = 100;
             else T = std::atoi(argv[1]);
-            if(argc < 3) N = 100;
+            if(argc < 3) N = 10;
             else N = std::atoi(argv[2]);
             srand((unsigned)time(0));
             //Create N particles
@@ -62,13 +62,17 @@ int main(int argc, char* argv[]){
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     //Create Box
-    Box *b = new Box(particles, L, T, timestep);
+    std::vector<double> p, c;
+    p.push_back(1.0);
+    c.push_back(1E-3);
+    MathFunction* ef = new Polynomial(1,p,c);
+    VectFunction* eF = new VectFunction(ef, ef, ef);
+    Box *b = new Box(particles, L, T, timestep, 1);
+    b->setExtForce(eF);
     b->setBField(B);
     //Run Simulation
     b->Go();
+    delete b;
 
-    for(i = 0; i < N; i++) {
-        delete particles[i].getForce();
-    }
 
 }

@@ -24,6 +24,7 @@ public:
       string var = "Unset") : MathFunction(var), m_zero(false), m_tag("poly"),
       m_num_terms(n_terms), m_powers(powers), m_coeffs(coeffs),
       m_funct_coeff(false) { /*check_differentiable();*/ }
+    ~Polynomial() { std::cout << "Deleted Polynomial\n"; }
     //Public member functions
     bool CheckStatus();
     // void Differentiate();

@@ -98,7 +98,11 @@ void Box::setForceAll(bool reset){
                   m_particles[j].setForce(c2[0], c2[1], c2[2]);
                 }
                 m_particles[i].addToForce(g);
+                m_particles[i].addToForce(
+                      EvalForce( m_particles[i].getPosition() ) );
                 m_particles[j].addToForce(g2);
+                m_particles[j].addToForce(
+                      EvalForce( m_particles[j].getPosition() ) );
             }
             m_particles[i].getForce()->calcMag();
         }
@@ -106,14 +110,18 @@ void Box::setForceAll(bool reset){
     else{
         for( i = 0; i < len; i++ ) {
             for(j = i+1; j < len; j++) {
-                c = Coulomb::Force(m_particles[i],m_particles[j]);
-                c2 = Coulomb::Force(m_particles[j],m_particles[i]);
+                c = Magnet::Force(m_particles[i],m_particles[j], m_BField);
+                c2 = Magnet::Force(m_particles[j],m_particles[i], m_BField);
                 g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
                 g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
                 m_particles[i].addToForce(c);
                 m_particles[j].addToForce(c2);
                 m_particles[i].addToForce(g);
                 m_particles[j].addToForce(g2);
+                m_particles[i].addToForce(
+                      EvalForce( m_particles[i].getPosition() ) );
+                m_particles[j].addToForce(
+                      EvalForce( m_particles[j].getPosition() ) );
             }
             m_particles[i].getForce()->calcMag();
         }
@@ -163,17 +171,23 @@ void Box::setForcesGrav(bool reset){
       return;
 }
 
+//Set the vector of the external B field
 void Box::setBField(std::vector<double> B){
     m_BField = B;
     return;
 }
 
+//Set the function for the external force
 void Box::setExtForce(VectFunction* f){
+    m_forceExists = true;
     m_extForce = f;
     return;
 }
 
+//Evaluate the value of the external force at pos
 std::vector<double> Box::EvalForce(std::vector<double> pos){
-    std::vector<double> f = m_extForce->Evaluate(pos);
+    std::vector<double> f;
+    if(m_forceExists) f = m_extForce->Evaluate(pos);
+    else f = Utility::zeroVec();
     return f;
 }

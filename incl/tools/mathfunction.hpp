@@ -27,6 +27,7 @@ public:
               exit(EXIT_FAILURE);
           }
       }
+    virtual ~MathFunction() {}
     //Public Member Functions
     virtual double Evaluate(double val);
     string GetTag();
