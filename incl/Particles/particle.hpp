@@ -5,10 +5,11 @@
 #include <vector>
 #include <cstdlib>
 
+#include "obj.hpp"
 #include "Forces/force.hpp"
 #include "tools/utility.hpp"
 
-class Particle{
+class Particle : public Object{
 private:
     double m_mass;    //Mass in eV/c^2
     double m_charge;  //Charge in eV
@@ -20,10 +21,10 @@ private:
 
 public:
     //Constructors
-    Particle(double mass, double charge)
-        : m_mass(mass), m_charge(charge), m_position_set(false),
-          m_velocity(Utility::zeroVec()) {}
-    Particle() : m_position_set(false), m_velocity(Utility::zeroVec()) {}
+    Particle(double mass, double charge, std::string id = "Particle")
+        : Object(id), m_mass(mass), m_charge(charge), m_position_set(false),
+          m_velocity(Utility::zeroVec()) { }
+    Particle(std::string id = "Particle") : Object(id), m_position_set(false), m_velocity(Utility::zeroVec()) {}
     //Public Memeber Functions
     void addToForce(std::vector<double> f);
     void takeFromForce(std::vector<double> f);

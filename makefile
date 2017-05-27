@@ -28,8 +28,8 @@ LFLAGS = -L/home/henry/C++/simulation/src
 LIBS = -lm #-lmylib
 
 # define the C source files
-SRCS = sims/NbodyGravity.cpp\
-src/tools/* src/Forces/* src/Particles/* src/Astro/* src/Systems/*
+SRCS = interface/interface.cpp src/obj.cpp\
+src/tools/* src/Forces/* src/Particles/* src/Astro/* src/Systems/* src/macros/*
 
 
 # define the C object files
@@ -43,7 +43,7 @@ src/tools/* src/Forces/* src/Particles/* src/Astro/* src/Systems/*
 OBJS = $(SRCS:.c=.o)
 
 # define the executable file
-MAIN = test
+MAIN = interf
 
 #
 # The following part of the makefile is generic; it can be used to

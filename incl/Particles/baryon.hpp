@@ -16,8 +16,8 @@ private:
 
 public:
     //Constructors
-    Hadron(int bnum, double mass, double charge)
-      : Particle(mass, charge), m_bnum(bnum){
+    Hadron(int bnum, double mass, double charge, std::string id = "Hadron")
+      : Particle(mass, charge, id), m_bnum(bnum){
           if(bnum==0) m_baryon = false;
           else m_baryon = true;
     }

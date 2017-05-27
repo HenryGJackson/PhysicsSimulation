@@ -49,30 +49,26 @@ int main(int argc, char* argv[]){
                 force = new Force(zeroVec);
                 particles[i].setForce(force);
             }
-            // for(i = N*0.5; i < N; i++) {
-            //     particles.push_back(Sphere(1,-1.0,1.0));
-            //     // part->ConvertUnits(true);
-            //     particles[i].setPosition(double(rand())/RAND_MAX*L,
-            //         double(rand())/RAND_MAX*L,double(rand())/RAND_MAX*L);
-            //     force = new Force(zeroVec);
-            //     particles[i].setForce(force);
-            // }
         }
         else throw argc;
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     //Create Box
+    Box *b = new Box(particles, L, T, timestep, 1);
+    //Set Forces on the box
     std::vector<double> p, c;
     p.push_back(1.0);
     c.push_back(1E-3);
     MathFunction* ef = new Polynomial(1,p,c);
     VectFunction* eF = new VectFunction(ef, ef, ef);
-    Box *b = new Box(particles, L, T, timestep, 1);
+    //Set External Force
     b->setExtForce(eF);
+    //Set external magnetic field
     b->setBField(B);
+
     //Run Simulation
     b->Go();
-    //Frees memory stored in box and all its members.
+    //Free memory stored in box and all its members.
     delete b;
 
 

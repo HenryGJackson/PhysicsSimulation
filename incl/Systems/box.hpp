@@ -1,12 +1,16 @@
 #ifndef BOX_HPP
 #define BOX_HPP
+
+
 #include "tools/utility.hpp"
 #include "Particles/particle.hpp"
 #include "Forces/Gravity.hpp"
 #include "Forces/electromagnetism.hpp"
 #include "tools/vectfunction.hpp"
+#include "Particles/sphere.hpp"
+#include "Particles/lepton.hpp"
 
-class Box{
+class Box : public Object{
 private:
     std::vector<Particle> m_particles;
     double m_timestep;
@@ -21,14 +25,15 @@ private:
 public:
     //Construct/Destruct
     Box(std::vector<Particle> part, double len, int numsteps,
-      double timestep, int bType = 0) : m_particles(part),
-      m_timestep(timestep), L(len), T(numsteps), m_boundType(bType){
+      double timestep, int bType = 0, std::string id = "Box") : Object(id),
+      m_particles(part), m_timestep(timestep), L(len), T(numsteps),
+      m_boundType(bType){
         setBField(Utility::zeroVec());
         N = part.size();
         m_forceExists = false;
         return;
     }
-    ~Box(){
+    virtual ~Box(){
         int i;
         for(i = 0; i < N; i++) {
             delete m_particles[i].getForce();

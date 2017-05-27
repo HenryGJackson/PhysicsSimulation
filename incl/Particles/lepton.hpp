@@ -19,8 +19,8 @@ private:
 
 public:
 
-    Lepton(int gen, bool neutrino = false, bool antiparticle = false)
-        : Particle(), m_generation(gen) {
+    Lepton(int gen, std::string tag = "Lepton", bool neutrino = false, bool antiparticle = false)
+        : Particle(tag), m_generation(gen) {
             try { if(gen < 1 || gen > 3) throw gen; }
             catch(int e) { std::cout << "Incorrect generation number: " << gen << std::endl; exit(EXIT_FAILURE); }
             if(neutrino) Neutrino(antiparticle);

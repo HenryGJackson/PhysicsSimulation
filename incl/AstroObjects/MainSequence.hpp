@@ -23,7 +23,7 @@ public:
         SetTemperature();
         SetMsLifetime();
     }
-    
+
     double GetMass();
     void SetLuminosity();
     void SetMsLifetime();

@@ -16,8 +16,8 @@ private:
     void CalcVolume();
 
 public:
-    Sphere(double mass, double charge, double rad)
-      : Particle(mass, charge), m_radius(rad) {
+    Sphere(double mass, double charge, double rad, std::string id = "Sphere")
+      : Particle(mass, charge, id), m_radius(rad) {
           CalcVolume();
           CalcDensity();
           return;
