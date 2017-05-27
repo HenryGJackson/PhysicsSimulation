@@ -143,3 +143,7 @@ void Particle::ConvertUnits(bool toSI){
     }
     return;
 }
+
+std::vector<double> Particle::getVelocity(){
+    return m_velocity;
+}

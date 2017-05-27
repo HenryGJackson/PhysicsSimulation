@@ -163,3 +163,8 @@ void Box::setForcesGrav(bool reset){
       }
       return;
 }
+
+void Box::setBField(std::vector<double> B){
+    m_BField = B;
+    return;
+}

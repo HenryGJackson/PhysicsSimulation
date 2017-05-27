@@ -15,4 +15,8 @@ namespace Coulomb{
     std::vector<double> Force(Particle p1, Particle p2);
     std::vector<double> Acceleration(Particle p1, Particle p2);
 }
+
+namespace Magnet{
+    std::vector<double> Force(Particle p1, Particle p2, std::vector<double> B);
+}
 #endif
