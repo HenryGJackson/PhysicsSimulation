@@ -51,3 +51,9 @@ std::vector<double> Utility::CrossProd(std::vector<double> a, std::vector<double
     v.push_back(a[0]*b[1] - a[1]+b[1]);
     return v;
 }
+
+void Utility::PrintVector(int ind, std::string title, std::vector<double> v){
+  std::cout << ind <<" - " << title << ": (" << v[0]
+            << ", " << v[1] << ", " << v[2] << ")\n";
+  return;
+}

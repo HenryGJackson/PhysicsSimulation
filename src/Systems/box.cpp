@@ -56,10 +56,9 @@ Particle* Box::GetParticle(int i){
 void Box::Print() {
   int i;
   for(i = 0; i < N; i++) {
-      std::cout << i <<" - Position: ("
-                << m_particles[i].getPosition(0) << ", "
-                << m_particles[i].getPosition(1) << ", "
-                << m_particles[i].getPosition(2) << ")\n" << i << " - ";
+      Utility::PrintVector(i, "Position", m_particles[i].getPosition());
+      Utility::PrintVector(i, "Velocity", m_particles[i].getVelocity());
+      std::cout << i << " - ";
       m_particles[i].getForce()->Print();
   }
 }

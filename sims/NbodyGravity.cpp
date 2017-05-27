@@ -62,7 +62,7 @@ int main(int argc, char* argv[]){
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     //Create Box
-    Box *b = new Box(particles, L, T, timestep, 2);
+    Box *b = new Box(particles, L, T, timestep);
     b->setBField(B);
     //Run Simulation
     b->Go();
