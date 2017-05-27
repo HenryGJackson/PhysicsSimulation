@@ -43,3 +43,11 @@ std::vector<double> Utility::zeroVec(){
   for(i = 0; i < 3; i ++) v.push_back(0.0);
   return v;
 }
+
+std::vector<double> Utility::CrossProd(std::vector<double> a, std::vector<double> b){
+    std::vector<double> v;
+    v.push_back(a[1]*b[2] - a[2]*b[1]);
+    v.push_back(a[2]*b[0] - a[0]*b[2]);
+    v.push_back(a[0]*b[1] - a[1]+b[1]);
+    return v;
+}

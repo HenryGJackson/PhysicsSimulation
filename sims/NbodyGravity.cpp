@@ -27,6 +27,8 @@ int main(int argc, char* argv[]){
     double L = 10E3;        //Length of the sides of the box
     std::vector<Particle> particles;  //Vector of N particles
     Force *force;
+    std::vector<double> B;
+    B.push_back(0.0); B.push_back(0.0); B.push_back(1.0);
     std::vector<double> zeroVec = Utility::zeroVec();
 
     //Set up the problem:
@@ -61,6 +63,7 @@ int main(int argc, char* argv[]){
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     //Create Box
     Box *b = new Box(particles, L, T, timestep, 2);
+    b->setBField(B);
     //Run Simulation
     b->Go();
 

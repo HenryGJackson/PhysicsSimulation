@@ -36,6 +36,7 @@ public:
     double getMass();
     std::vector<double> getPosition();
     double getPosition(int i);
+    std::vector<double> getVelocity();
     void Move(double timestep);
     void printParticle();
     void ReverseVel(int i);

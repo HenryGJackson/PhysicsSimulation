@@ -1,8 +1,10 @@
 #ifndef BOX_HPP
 #define BOX_HPP
+#include "tools/utility.hpp"
 #include "Particles/particle.hpp"
 #include "Forces/Gravity.hpp"
 #include "Forces/electromagnetism.hpp"
+
 
 class Box{
 private:
@@ -11,12 +13,14 @@ private:
     double L;
     int T;
     int N;
+    std::vector<double> m_BField;
     int m_boundType;
 
 public:
     Box(std::vector<Particle> part, double len, int numsteps,
       double timestep, int bType = 0) : m_particles(part),
-      m_timestep(timestep), L(len), T(numsteps), m_boundType(bType) {
+      m_timestep(timestep), L(len), T(numsteps), m_boundType(bType){
+        setBField(Utility::zeroVec());
         N = part.size();
         return;
     }
@@ -27,6 +31,7 @@ public:
     void MoveParticlesEM();
     void MoveParticlesAll();
     void Print();
+    void setBField(std::vector<double> B);
     void setForceAll(bool reset);
     void setForcesEM(bool reset);
     void setForcesGrav(bool reset);
