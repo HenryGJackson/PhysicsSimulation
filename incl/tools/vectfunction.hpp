@@ -17,6 +17,7 @@ public:
       : m_xFunc(x), m_yFunc(y), m_zFunc(z) {}
     VectFunction() {}
     ~VectFunction() {
+        //Check if pointers point to the same address, free the necessary memory
         if(m_xFunc == m_yFunc){
           if(m_xFunc != m_zFunc) delete m_zFunc;
           delete m_xFunc;

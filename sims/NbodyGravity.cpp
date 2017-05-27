@@ -72,6 +72,7 @@ int main(int argc, char* argv[]){
     b->setBField(B);
     //Run Simulation
     b->Go();
+    //Frees memory stored in box and all its members.
     delete b;
 
 

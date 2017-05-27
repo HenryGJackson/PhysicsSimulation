@@ -19,6 +19,7 @@ private:
     bool m_forceExists;
 
 public:
+    //Construct/Destruct
     Box(std::vector<Particle> part, double len, int numsteps,
       double timestep, int bType = 0) : m_particles(part),
       m_timestep(timestep), L(len), T(numsteps), m_boundType(bType){
@@ -37,6 +38,7 @@ public:
         std::cout << "Deleted Box\n";
         return;
     }
+    //Public member funcs
     void CheckBounds(int j);
     std::vector<double> EvalForce(std::vector<double> pos);
     Particle* GetParticle(int i);
