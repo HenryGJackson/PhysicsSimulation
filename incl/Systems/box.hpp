@@ -15,6 +15,7 @@ private:
     int N;
     std::vector<double> m_BField;
     int m_boundType;
+    MathFunction* m_extForce;
 
 public:
     Box(std::vector<Particle> part, double len, int numsteps,
@@ -25,6 +26,7 @@ public:
         return;
     }
     void CheckBounds(int j);
+    std::vector<double> EvalForce(std::vector<double> pos);
     Particle* GetParticle(int i);
     void Go();
     void MoveParticlesGrav();
@@ -32,6 +34,7 @@ public:
     void MoveParticlesAll();
     void Print();
     void setBField(std::vector<double> B);
+    void setExtForce(MathFunction* f);
     void setForceAll(bool reset);
     void setForcesEM(bool reset);
     void setForcesGrav(bool reset);

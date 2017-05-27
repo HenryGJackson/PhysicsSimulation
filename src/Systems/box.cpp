@@ -167,3 +167,15 @@ void Box::setBField(std::vector<double> B){
     m_BField = B;
     return;
 }
+
+void Box::setExtForce(MathFunction* f){
+    m_extForce = f;
+    return;
+}
+
+std::vector<double> Box::EvalForce(std::vector<double> pos){
+    std::vector<double> f;
+    int i;
+    for( i = 0; i < 3; i++) f.push_back(m_extForce->Evaluate(pos[i]));
+    return f;
+}
