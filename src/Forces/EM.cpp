@@ -22,8 +22,8 @@ std::vector<double> Coulomb::Acceleration(Particle p1, Particle p2){
 
 std::vector<double> Magnet::Force(Particle p1, Particle p2, std::vector<double> B) {
     int i;
-    std::vector<double> F = Coulomb::Force(p1, p2);
     std::vector<double> vxB = Utility::CrossProd(p1.getVelocity(), B);
+    std::vector<double> F = Coulomb::Force(p1, p2);
     for( i = 0; i < 3; i++) {
         F[i] = F[i]/p1.getCharge();
         F[i] = p1.getCharge()*(F[i] - vxB[i]);
