@@ -85,8 +85,8 @@ void Box::setForceAll(bool reset){
     if(reset){
         for( i = 0; i < len; i++ ) {
             for(j = i+1; j < len; j++) {
-                c = Coulomb::Force(m_particles[i],m_particles[j]);
-                c2 = Coulomb::Force(m_particles[j],m_particles[i]);
+                c = Magnet::Force(m_particles[i],m_particles[j], m_BField);
+                c2 = Magnet::Force(m_particles[j],m_particles[i], m_BField);
                 g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
                 g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
                 if(i!=0) {
