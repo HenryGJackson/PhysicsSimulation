@@ -47,7 +47,6 @@ public:
     void setPosition(double x, double y, double z);
     void setForce(Force *f);
     void setForce(double x, double y, double z);
-    // ~Particle() { delete m_force; }
 
 
 };
