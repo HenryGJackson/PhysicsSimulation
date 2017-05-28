@@ -43,7 +43,7 @@ src/tools/* src/Forces/* src/Particles/* src/Astro/* src/Systems/* src/macros/*
 OBJS = $(SRCS:.c=.o)
 
 # define the executable file
-MAIN = interf
+MAIN = LetsGo
 
 #
 # The following part of the makefile is generic; it can be used to
