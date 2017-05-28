@@ -57,3 +57,11 @@ void Utility::PrintVector(int ind, std::string title, std::vector<double> v){
             << ", " << v[1] << ", " << v[2] << ")\n";
   return;
 }
+
+std::vector<double> Utility::MultiplyVector(std::vector<double> a, double b){
+  unsigned int i;
+  for(i = 0; i < a.size(); i++) {
+    a[i] = b*a[i];
+  }
+  return a;
+}

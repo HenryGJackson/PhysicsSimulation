@@ -21,7 +21,7 @@
 //  etc...
 // NOTE: If just one argument is given, all particles are electrons
 //       If no arguments are given, 100 electrons are simulated
-int main(int argc, char* argv[]){
+int BuildBox(int N, int T, double timestep = 1E-5, double L = 10E3){
     unsigned int N, T, i; //Number of particles, Number of Timesteps, index
     double timestep = 1E-5; //length of each timestep
     double L = 10E3;        //Length of the sides of the box
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
     }
     catch(int a) { std::cout << a << " Is Too Many Arguments...\n"; exit(EXIT_FAILURE); }
     //Create Box
-    Box *b = new Box(particles, L, T, timestep, 1);
+    Box *b = new Box(particles, L, T, timestep, 1, "box1");
     //Set Forces on the box
     std::vector<double> p, c;
     p.push_back(1.0);

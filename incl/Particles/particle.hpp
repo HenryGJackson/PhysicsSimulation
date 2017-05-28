@@ -25,6 +25,7 @@ public:
         : Object(id), m_mass(mass), m_charge(charge), m_position_set(false),
           m_velocity(Utility::zeroVec()) { }
     Particle(std::string id = "Particle") : Object(id), m_position_set(false), m_velocity(Utility::zeroVec()) {}
+    virtual ~Particle() { delete m_force; }
     //Public Memeber Functions
     void addToForce(std::vector<double> f);
     void takeFromForce(std::vector<double> f);

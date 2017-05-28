@@ -6,7 +6,7 @@ void Box::MoveParticlesGrav(){
     for(j = 0; j < N; j++) {
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
-        m_particles[j].Move(m_timestep);
+        m_particles[j]->Move(m_timestep);
         CheckBounds(j);
     }
     return;
@@ -18,7 +18,7 @@ void Box::MoveParticlesEM(){
     for(j = 0; j < N; j++) {
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
-        m_particles[j].Move(m_timestep);
+        m_particles[j]->Move(m_timestep);
         CheckBounds(j);
     }
     return;
@@ -31,16 +31,16 @@ void Box::MoveParticlesAll(){
     for(j = 0; j < N; j++) {
         // std::cout  << "\rMovement Progress: " << j << "/" << N
         //     << "                      " << std::flush;
-        m_particles[j].Move(m_timestep);
+        m_particles[j]->Move(m_timestep);
         CheckBounds(j);
     }
     return;
 }
 
 void Box::CheckBounds(int j){
-  if(m_boundType == 1) m_particles[j].checkBoundsB(L);
+  if(m_boundType == 1) m_particles[j]->checkBoundsB(L);
   else if(m_boundType == 2) {
-      if(!m_particles[j].checkBoundsA(L)) {
+      if(!m_particles[j]->checkBoundsA(L)) {
         m_particles.erase(m_particles.begin()+j);
         N -= 1;
       }
@@ -50,16 +50,16 @@ void Box::CheckBounds(int j){
 
 
 Particle* Box::GetParticle(int i){
-    return &m_particles[i];
+    return m_particles[i];
 }
 
 void Box::Print() {
   int i;
   for(i = 0; i < N; i++) {
-      Utility::PrintVector(i, "Position", m_particles[i].getPosition());
-      Utility::PrintVector(i, "Velocity", m_particles[i].getVelocity());
+      Utility::PrintVector(i, "Position", m_particles[i]->getPosition());
+      Utility::PrintVector(i, "Velocity", m_particles[i]->getVelocity());
       std::cout << i << " - ";
-      m_particles[i].getForce()->Print();
+      m_particles[i]->getForce()->Print();
   }
 }
 
@@ -86,25 +86,27 @@ void Box::setForceAll(bool reset){
             for(j = i+1; j < len; j++) {
                 c = Magnet::Force(m_particles[i],m_particles[j], m_BField);
                 c2 = Magnet::Force(m_particles[j],m_particles[i], m_BField);
-                g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
-                g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
+                g = Gravity::ForceVec(m_particles[i],m_particles[j]);
+                g2 = Gravity::ForceVec(m_particles[j],m_particles[i]);
                 if(i!=0) {
-                   if(j!=1) m_particles[i].addToForce(c);
-                   else m_particles[i].setForce(c[0], c[1], c[2]);
-                   m_particles[j].addToForce(c2);
+                   if(j!=1) m_particles[i]->addToForce(c);
+                   else m_particles[i]->setForce(c[0], c[1], c[2]);
+                   m_particles[j]->addToForce(c2);
                 }
                 else{
-                  m_particles[i].setForce(c[0], c[1], c[2]);
-                  m_particles[j].setForce(c2[0], c2[1], c2[2]);
+                  m_particles[i]->setForce(c[0], c[1], c[2]);
+                  m_particles[j]->setForce(c2[0], c2[1], c2[2]);
                 }
-                m_particles[i].addToForce(g);
-                m_particles[i].addToForce(
-                      EvalForce( m_particles[i].getPosition() ) );
-                m_particles[j].addToForce(g2);
-                m_particles[j].addToForce(
-                      EvalForce( m_particles[j].getPosition() ) );
+                m_particles[i]->addToForce(g);
+                m_particles[i]->addToForce(
+                    EvalForce( m_particles[i]->getPosition(),
+                               m_particles[i]->getMass() ) );
+                m_particles[j]->addToForce(g2);
+                m_particles[j]->addToForce(
+                      EvalForce( m_particles[j]->getPosition(),
+                                 m_particles[i]->getMass() ) );
             }
-            m_particles[i].getForce()->calcMag();
+            m_particles[i]->getForce()->calcMag();
         }
     }
     else{
@@ -112,18 +114,20 @@ void Box::setForceAll(bool reset){
             for(j = i+1; j < len; j++) {
                 c = Magnet::Force(m_particles[i],m_particles[j], m_BField);
                 c2 = Magnet::Force(m_particles[j],m_particles[i], m_BField);
-                g = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
-                g2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
-                m_particles[i].addToForce(c);
-                m_particles[j].addToForce(c2);
-                m_particles[i].addToForce(g);
-                m_particles[j].addToForce(g2);
-                m_particles[i].addToForce(
-                      EvalForce( m_particles[i].getPosition() ) );
-                m_particles[j].addToForce(
-                      EvalForce( m_particles[j].getPosition() ) );
+                g = Gravity::ForceVec(m_particles[i],m_particles[j]);
+                g2 = Gravity::ForceVec(m_particles[j],m_particles[i]);
+                m_particles[i]->addToForce(c);
+                m_particles[j]->addToForce(c2);
+                m_particles[i]->addToForce(g);
+                m_particles[j]->addToForce(g2);
+                m_particles[i]->addToForce(
+                  EvalForce( m_particles[j]->getPosition(),
+                             m_particles[i]->getMass() ) );
+                m_particles[j]->addToForce(
+                  EvalForce( m_particles[j]->getPosition(),
+                             m_particles[i]->getMass() ) );
             }
-            m_particles[i].getForce()->calcMag();
+            m_particles[i]->getForce()->calcMag();
         }
     }
     return;
@@ -135,17 +139,17 @@ void Box::setForcesEM(bool reset){
       int len = m_particles.size();
       if(reset){
           for( i = 0; i < len; i++) {
-              m_particles[i].setForce(0,0,0);
+              m_particles[i]->setForce(0,0,0);
           }
       }
       for( i = 0; i < len; i++ ) {
           for(j = i+1; j < len; j++) {
               f = Coulomb::Force(m_particles[i],m_particles[j]);
               f2 = Coulomb::Force(m_particles[j],m_particles[i]);
-              m_particles[i].addToForce(f);
-              m_particles[j].addToForce(f2);
+              m_particles[i]->addToForce(f);
+              m_particles[j]->addToForce(f2);
           }
-          m_particles[i].getForce()->calcMag();
+          m_particles[i]->getForce()->calcMag();
       }
       return;
 }
@@ -156,17 +160,17 @@ void Box::setForcesGrav(bool reset){
       int len = m_particles.size();
       if(reset){
           for( i = 0; i < len; i++) {
-              m_particles[i].setForce(0,0,0);
+              m_particles[i]->setForce(0,0,0);
           }
       }
       for( i = 0; i < len; i++ ) {
           for(j = i+1; j < len; j++) {
-              f = Gravity::ForceVec(&m_particles[i],&m_particles[j]);
-              f2 = Gravity::ForceVec(&m_particles[j],&m_particles[i]);
-              m_particles[i].addToForce(f);
-              m_particles[j].addToForce(f);
+              f = Gravity::ForceVec(m_particles[i],m_particles[j]);
+              f2 = Gravity::ForceVec(m_particles[j],m_particles[i]);
+              m_particles[i]->addToForce(f);
+              m_particles[j]->addToForce(f);
           }
-          m_particles[i].getForce()->calcMag();
+          m_particles[i]->getForce()->calcMag();
       }
       return;
 }
@@ -185,9 +189,24 @@ void Box::setExtForce(VectFunction* f){
 }
 
 //Evaluate the value of the external force at pos
-std::vector<double> Box::EvalForce(std::vector<double> pos){
+std::vector<double> Box::EvalForce(std::vector<double> pos, double mass){
     std::vector<double> f;
-    if(m_forceExists) f = m_extForce->Evaluate(pos);
+    if(m_forceExists) {
+      f = m_extForce->Evaluate(pos);
+      f = Utility::MultiplyVector(f, mass);
+    }
     else f = Utility::zeroVec();
     return f;
+}
+
+void Box::EarthGravity(){
+    std::vector<double> p, c;
+    p.push_back(0.0);
+    c.push_back(0.0);
+    MathFunction* xy = new Polynomial(1,p,c);
+    c.clear();
+    c.push_back(9.81);
+    MathFunction* z = new Polynomial(1,p,c);
+    VectFunction* xyz = new VectFunction(xy, xy, z);
+    setExtForce(xyz);
 }

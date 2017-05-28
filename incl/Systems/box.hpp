@@ -12,7 +12,7 @@
 
 class Box : public Object{
 private:
-    std::vector<Particle> m_particles;
+    std::vector<Particle*> m_particles;
     double m_timestep;
     double L;
     int T;
@@ -24,7 +24,7 @@ private:
 
 public:
     //Construct/Destruct
-    Box(std::vector<Particle> part, double len, int numsteps,
+    Box(std::vector<Particle*> part, double len, int numsteps,
       double timestep, int bType = 0, std::string id = "Box") : Object(id),
       m_particles(part), m_timestep(timestep), L(len), T(numsteps),
       m_boundType(bType){
@@ -36,7 +36,8 @@ public:
     virtual ~Box(){
         int i;
         for(i = 0; i < N; i++) {
-            delete m_particles[i].getForce();
+            delete m_particles[i];
+            // delete m_particles[i].getForce();
         }
         std::cout << "Deleted Forces\n";
         delete m_extForce;
@@ -45,7 +46,8 @@ public:
     }
     //Public member funcs
     void CheckBounds(int j);
-    std::vector<double> EvalForce(std::vector<double> pos);
+    void EarthGravity();
+    std::vector<double> EvalForce(std::vector<double> pos, double mass);
     Particle* GetParticle(int i);
     void Go();
     void MoveParticlesGrav();
