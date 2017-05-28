@@ -2,11 +2,11 @@
 A console application for physics simulations
 
 # Using the User Interface:
-A makefile is included to help you build the project. (Enter ./LetsGo to run)
-Typing "help" brings up the menu of options you can choose from.
-Options entered successively will all be chosen unless they overwrite each other by making choices on the same parameter.
-Multiple chosen simulations will be executed.
-Typing "quit" exits the program.
+A makefile is included to help you build the project. (Enter ./LetsGo to run)  
+Typing "help" brings up the menu of options you can choose from.  
+Options entered successively will all be chosen unless they overwrite each other by making choices on the same parameter.  
+Multiple chosen simulations will be executed.  
+Typing "quit" exits the program.  
 
 # Systems:
 ## Box -
