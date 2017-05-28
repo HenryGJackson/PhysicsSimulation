@@ -55,7 +55,7 @@ void SimMenu() {
               << "|*  BOX-BB: Box with bouncing boundaries.       *|\n"
               << "|*  BOX-AB: Box with absorbing boundaries.      *|\n"
               << "|*  BOX-NB: Box with no boundaries.             *|\n"
-              << "|*                                              *|\n"
+              << "|*  PLANE:  Flat plane boundary.                *|\n"
               << "|************************************************/\n";
 }
 void BoxMenu() {
