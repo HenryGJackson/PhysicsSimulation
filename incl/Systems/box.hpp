@@ -12,22 +12,24 @@
 
 class Box : public Object{
 private:
-    std::vector<Particle*> m_particles;
-    double m_timestep;
-    double L;
-    int T;
-    int N;
-    std::vector<double> m_BField;
-    int m_boundType;
-    VectFunction* m_extForce;
-    bool m_forceExists;
+    std::vector<Particle*> m_particles;   //The particles in the box
+    double m_timestep; //Duration of one timesttep
+    double L;    //Length of the one side of the box
+    int T;       //Number of timesteps
+    int N;       //Number of particles
+    int m_ints;  //Interaction code
+                 // 1: Gravity 2: EM 3: Gravity + EM 0: Neither
+    std::vector<double> m_BField; //Magnetic field vector
+    int m_boundType;    //Boundary conditions type code
+    VectFunction* m_extForce; //External force as a function of posisitions
+    bool m_forceExists;   //Tells whether a magnetic force is present
 
 public:
     //Construct/Destruct
     Box(std::vector<Particle*> part, double len, int numsteps,
-      double timestep, int bType = 0, std::string id = "Box") : Object(id),
-      m_particles(part), m_timestep(timestep), L(len), T(numsteps),
-      m_boundType(bType){
+      double timestep, int bType = 0, int ints = 1, std::string id = "Box") :
+        Object(id), m_particles(part), m_timestep(timestep), L(len), T(numsteps),
+        m_ints(ints), m_boundType(bType){
         setBField(Utility::zeroVec());
         N = part.size();
         m_forceExists = false;
@@ -50,15 +52,16 @@ public:
     std::vector<double> EvalForce(std::vector<double> pos, double mass);
     Particle* GetParticle(int i);
     void Go();
-    void MoveParticlesGrav();
-    void MoveParticlesEM();
+    int Interactions();
     void MoveParticlesAll();
     void Print();
     void setBField(std::vector<double> B);
     void setExtForce(VectFunction* f);
     void setForceAll(bool reset);
-    void setForcesEM(bool reset);
-    void setForcesGrav(bool reset);
+    void setForceNoEM(bool reset);
+    void setForceNoGrav(bool reset);
+    void setForceNoInts(bool reset);
+
 };
 
 #endif

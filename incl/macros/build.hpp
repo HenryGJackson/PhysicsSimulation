@@ -17,7 +17,8 @@
 #include "Systems/box.hpp"
 
 namespace Build{
-    Box* PutInBox(std::vector<Particle*> particles, int BCs = 1,  int T = 100, double timestep = 1E-5, double L = 10E3);
+    Box* PutInBox(std::vector<Particle*> particles, int BCs = 1,  int T = 100,
+      double timestep = 1E-5, double L = 10E3, int ints = 1);
     std::vector<Particle*> SphereRandParts(int N = 100, double L = 10E3);
 }
 

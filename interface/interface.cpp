@@ -53,7 +53,7 @@ void SimMenu() {
               << "|*                  -- Menu --                  *|\n"
               << "|*  BOX-BB: Box with bouncing boundaries.       *|\n"
               << "|*  BOX-AB: Box with absorbing boundaries.      *|\n"
-              << "|*  BOX-AB: Box with no boundaries.             *|\n"
+              << "|*  BOX-NB: Box with no boundaries.             *|\n"
               << "|*                                              *|\n"
               << "|************************************************/\n";
 }
@@ -67,13 +67,15 @@ void BoxMenu() {
               << "|*  NRS: N unit spheres with random positions,  *|\n"
               << "|*       masses and charges.                    *|\n"
               << "|*                                              *|\n"
+              << "|*  CBOX: customize parameters of sim           *|\n"
               << "|************************************************/\n";
 }
 
 std::map<std::string, int> GetBoxMap(){
   std::map<std::string, int> Map;
   Map["EG"] = 0;     //Earth Gravity
-  Map["NRS"] = 0;   //N spheres with random position, mass, charge
+  Map["NRS"] = 0;    //N spheres with random position, mass, charge
+  Map["CBOX"] = 0;   //Allows customization of parameters
   return Map;
 }
 
@@ -89,6 +91,11 @@ std::map<std::string, int> GetSimMap(){
 
 void BoxInterface(int BCs){
   BoxMenu();
+  int T = 100;
+  double timestep = 1E-5;
+  double L = 10E3;
+  int N = 100;
+  int ints = 1;
   std::map<std::string, int> BMap = GetBoxMap();
   std::string str;
   while(1){
@@ -100,12 +107,21 @@ void BoxInterface(int BCs){
   }
   Box* box;
   std::vector<Particle*> parts;
-  if(BMap["NRS"]) parts = Build::SphereRandParts();
+  if(BMap["NRS"]) parts = Build::SphereRandParts(N, L);
   else {
     std::cout << "No Sphere Set Selected.\n";
     exit(EXIT_FAILURE);
   }
-  box = Build::PutInBox(parts, BCs);
+  if(BMap["CBOX"]) {
+      std::cout << "Number of Timesteps:     "; std::cin >> T;
+      std::cout << "Length of each timestep: "; std::cin >> timestep;
+      std::cout << "Length of each side:     "; std::cin >> L;
+      std::cout << "Number of particles:     "; std::cin >> N;
+      std::cout << "Allowed Interactions:    \n"
+                << "1: Gravity      2: EM \n"
+                << "3: Gravity + EM 0: None.."; std::cin >> ints;
+  }
+  box = Build::PutInBox(parts, BCs, T, timestep, L, ints);
   if(BMap["EG"]) box->EarthGravity();
   box->Go();
   delete box;

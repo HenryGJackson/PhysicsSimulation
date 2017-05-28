@@ -23,12 +23,12 @@ std::vector<Particle*> Build::SphereRandParts(int N, double L) {
     return particles;
 }
 
-Box* Build::PutInBox(std::vector<Particle*> particles, int BCs, int T, double timestep, double L){
+Box* Build::PutInBox(std::vector<Particle*> particles, int BCs, int T, double timestep, double L, int ints){
     std::vector<double> B;
     B.push_back(0.0); B.push_back(0.0); B.push_back(1.0);
 
     //Create Box
-    Box *b = new Box(particles, L, T, timestep, BCs, "box1");
+    Box *b = new Box(particles, L, T, timestep, BCs, ints, "box1");
     //Set Forces on the box
 
     //Set External Force
