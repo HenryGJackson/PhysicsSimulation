@@ -28,6 +28,7 @@ int main(int argc, char* argv[]){
     if(SMap["BOX-BB"])  BoxInterface(1);
     if(SMap["BOX-AB"])  BoxInterface(2);
     if(SMap["BOX-NB"])  BoxInterface(0);
+    if(SMap["PLANE"])   BoxInterface(3);
     // while(1) {
     //     std::cin >> str;
     //     if(str == "quit") break;
@@ -84,7 +85,7 @@ std::map<std::string, int> GetSimMap(){
   Map["BOX-BB"] = 0;     //Box with bouncing boundaries
   Map["BOX-AB"] = 0;     //Box with absorbing boundaries
   Map["BOX-NB"] = 0;     //Box with no boundaries
-  //Map["PLANE"] = 0;      //Plane with a flat bottom at z = 0
+  Map["PLANE"] = 0;      //Plane with a flat bottom at z = 0
   //Map["F-PLANE"] = 0;    //Plane given by a vector function
   return Map;
 }

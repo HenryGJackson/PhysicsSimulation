@@ -26,6 +26,8 @@ void Box::CheckBounds(int j){
         N -= 1;
       }
   }
+  else if(m_boundType == 3) m_particles[j]->CheckBoundsP(3,0.0);
+
   return;
 }
 

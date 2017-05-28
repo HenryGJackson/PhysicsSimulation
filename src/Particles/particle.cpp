@@ -65,7 +65,13 @@ void Particle::ReverseVel(int i){
     m_velocity[i] = m_velocity[i]*(-1);
     return;
 }
-
+void Particle::CheckBoundsP(int axis, double val) {
+    if(m_position[axis] < val) {
+      m_position[axis] = val + (val-m_position[axis]);
+      ReverseVel(axis);
+    }
+    return;
+}
 //Apply bouncing boundary condition
 void Particle::checkBoundsB(double L){
     int i;

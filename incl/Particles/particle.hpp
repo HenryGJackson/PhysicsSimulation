@@ -31,6 +31,7 @@ public:
     void takeFromForce(std::vector<double> f);
     bool checkBoundsA(double L);
     void checkBoundsB(double L);
+    void CheckBoundsP(int axis, double val);
     bool checkPosition();
     void ConvertUnits(bool toSI = true);
     double getCharge();
