@@ -10,6 +10,10 @@ double Utility::Magnitude(std::vector<double> vect){
 
 
 
+
+
+
+
 //Raise to an integer powers
 double Utility::RaiseToPower(double value, int power){
     int tmp_pow;
